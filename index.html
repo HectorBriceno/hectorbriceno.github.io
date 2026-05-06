@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Héctor Briceño, PhD — Data Strategist</title>
+  <meta name="description" content="Political scientist and data strategist specializing in quantitative research, electoral intelligence, and strategic analytics across Latin America and Europe."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#080C14; --bg2:#0E1420; --bg3:#141B2A; --surface:#1A2236;
+      --border:rgba(255,255,255,0.07); --gold:#C9A84C; --gold-dim:rgba(201,168,76,0.15);
+      --blue:#4A90D9; --text:#E4E8F0; --text-mid:#8A95A8; --text-dim:#4A5568;
+      --mono:'IBM Plex Mono',monospace; --serif:'DM Serif Display',serif; --sans:'Outfit',sans-serif;
+    }
+    html { scroll-behavior:smooth; background:#080C14; overflow-x:hidden; max-width:100%; }
+    body { background-color:#080C14; background-image:linear-gradient(rgba(74,144,217,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(74,144,217,0.03) 1px,transparent 1px); background-size:60px 60px; color:var(--text); font-family:var(--sans); font-weight:300; line-height:1.7; overflow-x:hidden; width:100%; max-width:100%; }
+
+    /* ── NAV ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:0 max(1.5rem,calc((100% - 1100px)/2)); height:64px; display:flex; align-items:center; justify-content:space-between; background:rgba(8,12,20,0.90); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.07); }
+    .nav-logo { font-family:var(--mono); font-size:0.78rem; color:var(--gold); letter-spacing:0.1em; text-decoration:none; white-space:nowrap; }
+    .nav-right { display:flex; align-items:center; gap:1.5rem; }
+    .nav-links { display:flex; gap:1.5rem; list-style:none; }
+    .nav-links a { font-family:var(--mono); font-size:0.68rem; color:var(--text-mid); text-decoration:none; letter-spacing:0.1em; text-transform:uppercase; transition:color 0.2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--gold); transform:scaleX(0); transition:transform 0.25s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-links a:hover::after { transform:scaleX(1); }
+
+    /* Language switcher */
+    .lang-switcher { display:flex; gap:2px; }
+    .lang-btn { font-family:var(--mono); font-size:0.62rem; color:var(--text-dim); background:transparent; border:1px solid rgba(255,255,255,0.07); padding:0.25rem 0.45rem; cursor:pointer; letter-spacing:0.06em; transition:all 0.2s; }
+    .lang-btn.active, .lang-btn:hover { color:var(--gold); border-color:var(--gold); background:rgba(201,168,76,0.08); }
+
+    /* Hamburger */
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:transparent; border:none; }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--text-mid); transition:all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+
+    /* Mobile nav drawer */
+    .mobile-nav { display:none; position:fixed; top:64px; left:0; right:0; background:rgba(8,12,20,0.98); backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,0.07); z-index:99; padding:1.5rem max(1.5rem,calc((100% - 1100px)/2)); flex-direction:column; gap:0; }
+    .mobile-nav.open { display:flex; }
+    .mobile-nav a { font-family:var(--mono); font-size:0.75rem; color:var(--text-mid); text-decoration:none; letter-spacing:0.1em; text-transform:uppercase; padding:0.9rem 0; border-bottom:1px solid rgba(255,255,255,0.07); transition:color 0.2s; }
+    .mobile-nav a:hover { color:var(--gold); }
+    .mobile-lang { display:flex; gap:0.5rem; padding-top:1rem; }
+
+    /* ── HERO ── */
+    #hero { position:relative; z-index:1; background-color:#080C14; min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:120px max(1.5rem,calc((100% - 1100px)/2)) 80px; overflow:hidden; }
+    #hero::before { content:'DATA'; position:absolute; right:-0.05em; top:50%; transform:translateY(-55%); font-family:var(--serif); font-size:min(26vw,320px); color:rgba(255,255,255,0.018); pointer-events:none; line-height:1; user-select:none; }
+    .hero-tag { font-family:var(--mono); font-size:0.72rem; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.75rem; opacity:0; animation:fadeUp 0.8s 0.2s forwards; }
+    .hero-tag::before { content:''; display:inline-block; width:32px; height:1px; background:var(--gold); }
+    h1 { font-family:var(--serif); font-size:clamp(2.8rem,7vw,6.5rem); font-weight:400; line-height:1.05; color:var(--text); margin-bottom:0.2em; opacity:0; animation:fadeUp 0.8s 0.35s forwards; }
+    h1 em { font-style:italic; color:var(--gold); }
+    .hero-sub { font-family:var(--mono); font-size:0.78rem; color:var(--text-mid); letter-spacing:0.04em; margin-top:1.5rem; margin-bottom:2.5rem; max-width:580px; line-height:1.9; opacity:0; animation:fadeUp 0.8s 0.5s forwards; }
+    .hero-cta { display:flex; gap:1rem; flex-wrap:wrap; opacity:0; animation:fadeUp 0.8s 0.65s forwards; }
+    .btn-primary { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.75rem; background:var(--gold); color:var(--bg); font-family:var(--mono); font-size:0.72rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; border:none; cursor:pointer; transition:all 0.25s; }
+    .btn-primary:hover { background:#E5BE6A; transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,168,76,0.25); }
+    .btn-ghost { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.75rem; background:transparent; color:var(--text-mid); font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; border:1px solid rgba(255,255,255,0.07); cursor:pointer; transition:all 0.25s; }
+    .btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+    .hero-stats { display:flex; gap:3rem; margin-top:5rem; padding-top:2.5rem; border-top:1px solid rgba(255,255,255,0.07); opacity:0; animation:fadeUp 0.8s 0.8s forwards; flex-wrap:wrap; }
+    .stat-num { font-family:var(--serif); font-size:2.2rem; color:var(--gold); line-height:1; }
+    .stat-label { font-family:var(--mono); font-size:0.62rem; color:var(--text-dim); letter-spacing:0.12em; text-transform:uppercase; margin-top:0.4rem; }
+
+    /* ── SECTION SHARED ── */
+    section { position:relative; z-index:1; padding:100px max(1.5rem,calc((100% - 1100px)/2)); }
+    .section-label { font-family:var(--mono); font-size:0.68rem; color:var(--gold); letter-spacing:0.2em; text-transform:uppercase; display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem; }
+    .section-label::after { content:''; flex:1; max-width:60px; height:1px; background:var(--gold); opacity:0.5; }
+    h2 { font-family:var(--serif); font-size:clamp(1.8rem,4vw,3.2rem); font-weight:400; line-height:1.1; color:var(--text); margin-bottom:1.5rem; }
+
+    /* ── ABOUT ── */
+    #about { background:#0E1420; border-top:1px solid rgba(255,255,255,0.07); border-bottom:1px solid rgba(255,255,255,0.07); }
+    .about-grid { display:grid; grid-template-columns:1.2fr 0.8fr; gap:4rem; align-items:start; margin-top:3rem; }
+    .about-text p { color:var(--text-mid); margin-bottom:1.2rem; font-size:1rem; line-height:1.8; }
+    .about-text p strong { color:var(--text); font-weight:500; }
+    .sidebar-card { background:#141B2A; border:1px solid rgba(255,255,255,0.07); padding:1.5rem; margin-bottom:1rem; }
+    .sidebar-card-title { font-family:var(--mono); font-size:0.65rem; color:var(--gold); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.75rem; }
+    .tag-cloud { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .tag { font-family:var(--mono); font-size:0.65rem; color:var(--text-mid); border:1px solid rgba(255,255,255,0.07); padding:0.3rem 0.65rem; letter-spacing:0.08em; transition:all 0.2s; }
+    .tag:hover { border-color:var(--gold); color:var(--gold); background:var(--gold-dim); }
+
+    /* ── EXPERTISE ── */
+    #expertise { background:#080C14; }
+    .expertise-intro { color:var(--text-mid); max-width:600px; margin-bottom:3.5rem; font-size:1rem; }
+    .expertise-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid rgba(255,255,255,0.07); }
+    .expertise-card:last-child:nth-child(3n+1) { grid-column: span 3; }
+    .expertise-card:last-child:nth-child(3n+2) { grid-column: span 2; }
+    .expertise-card { background:#080C14; padding:2rem 1.75rem; transition:background 0.25s; cursor:default; }
+    .expertise-card:hover { background:#0E1420; }
+    .expertise-card:hover .exp-icon { color:var(--gold); transform:scale(1.1); }
+    .exp-icon { font-size:1.6rem; margin-bottom:1rem; display:block; transition:all 0.25s; color:var(--text-mid); }
+    .exp-title { font-family:var(--sans); font-weight:600; font-size:0.95rem; color:var(--text); margin-bottom:0.5rem; }
+    .exp-tools { font-family:var(--mono); font-size:0.62rem; color:var(--gold); letter-spacing:0.08em; margin-bottom:0.75rem; }
+    .exp-desc { font-size:0.85rem; color:var(--text-mid); line-height:1.7; }
+
+    /* ── PROJECTS ── */
+    #projects { background:#0E1420; border-top:1px solid rgba(255,255,255,0.07); border-bottom:1px solid rgba(255,255,255,0.07); }
+    .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem; margin-top:3rem; }
+    .project-card { background:#141B2A; border:1px solid rgba(255,255,255,0.07); padding:2rem; position:relative; overflow:hidden; transition:all 0.3s; }
+    .project-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--gold); transform:scaleY(0); transform-origin:bottom; transition:transform 0.3s; }
+    .project-card:hover { border-color:rgba(201,168,76,0.3); transform:translateY(-4px); box-shadow:0 16px 48px rgba(0,0,0,0.4); }
+    .project-card:hover::before { transform:scaleY(1); }
+    .project-tag { font-family:var(--mono); font-size:0.6rem; color:var(--gold); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.75rem; }
+    .project-title { font-family:var(--sans); font-weight:600; font-size:1rem; color:var(--text); margin-bottom:0.75rem; line-height:1.4; }
+    .project-desc { font-size:0.85rem; color:var(--text-mid); line-height:1.7; margin-bottom:1.25rem; }
+    .project-meta { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .meta-tag { font-family:var(--mono); font-size:0.58rem; color:var(--text-dim); border:1px solid rgba(255,255,255,0.07); padding:0.2rem 0.5rem; letter-spacing:0.06em; }
+    .proj-link { font-family:var(--mono); font-size:0.63rem; color:var(--gold); letter-spacing:0.1em; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.3); padding-bottom:2px; transition:border-color 0.2s; display:inline-block; margin-top:1.1rem; }
+    .proj-link:hover { border-color:var(--gold); }
+
+    /* ── PUBLICATIONS ── */
+    #publications { background:#080C14; }
+    .pub-list { margin-top:3rem; }
+    .pub-item { display:grid; grid-template-columns:80px 1fr; gap:2rem; padding:1.75rem 0; border-bottom:1px solid rgba(255,255,255,0.07); align-items:start; transition:all 0.2s; }
+    .pub-item:hover .pub-year,.pub-item:hover .pub-title { color:var(--gold); }
+    .pub-year { font-family:var(--mono); font-size:0.85rem; color:var(--text-dim); padding-top:0.2rem; transition:color 0.2s; }
+    .pub-title { font-weight:500; font-size:0.95rem; color:var(--text); margin-bottom:0.35rem; line-height:1.5; transition:color 0.2s; }
+    .pub-source { font-family:var(--mono); font-size:0.65rem; color:var(--text-mid); letter-spacing:0.04em; }
+    .pub-badge { display:inline-block; font-family:var(--mono); font-size:0.58rem; color:var(--blue); border:1px solid rgba(74,144,217,0.3); padding:0.15rem 0.45rem; margin-left:0.5rem; letter-spacing:0.06em; }
+    .pub-divider { padding:1.2rem 0 0.4rem; border-bottom:1px solid rgba(255,255,255,0.07); }
+    .pub-divider span { font-family:var(--mono); font-size:0.63rem; color:var(--text-dim); letter-spacing:0.15em; text-transform:uppercase; }
+    .pub-more { margin-top:2rem; text-align:center; }
+
+    /* ── CONTACT ── */
+    #contact { background:#0E1420; border-top:1px solid rgba(255,255,255,0.07); text-align:center; }
+    .contact-inner { max-width:640px; margin:0 auto; }
+    .contact-inner h2 { margin-bottom:1rem; }
+    .contact-inner > p { color:var(--text-mid); margin-bottom:2.5rem; font-size:1rem; }
+    .contact-form { text-align:left; margin-top:2rem; }
+    .form-group { margin-bottom:1.2rem; }
+    .form-group label { display:block; font-family:var(--mono); font-size:0.65rem; color:var(--text-mid); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.5rem; }
+    .form-group input, .form-group textarea {
+      width:100%; background:#141B2A; border:1px solid rgba(255,255,255,0.07); color:var(--text);
+      font-family:var(--sans); font-size:0.9rem; padding:0.75rem 1rem;
+      outline:none; transition:border-color 0.2s; resize:vertical;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color:var(--gold); }
+    .form-group textarea { min-height:120px; }
+    .form-submit { width:100%; margin-top:0.5rem; }
+    .form-success { display:none; padding:1rem; background:rgba(26,158,143,0.1); border:1px solid rgba(26,158,143,0.3); font-family:var(--mono); font-size:0.75rem; color:#1A9E8F; text-align:center; margin-top:1rem; letter-spacing:0.06em; }
+    .contact-links { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin-top:2.5rem; }
+    .contact-link { display:flex; align-items:center; gap:0.5rem; font-family:var(--mono); font-size:0.7rem; color:var(--text-mid); text-decoration:none; letter-spacing:0.08em; padding:0.6rem 1.2rem; border:1px solid rgba(255,255,255,0.07); transition:all 0.2s; }
+    .contact-link:hover { border-color:var(--gold); color:var(--gold); }
+
+    /* ── FOOTER ── */
+    footer { position:relative; z-index:1; padding:2rem max(1.5rem,calc((100% - 1100px)/2)); border-top:1px solid rgba(255,255,255,0.07); display:flex; justify-content:space-between; align-items:center; background:#080C14; flex-wrap:wrap; gap:0.5rem; }
+    footer span { font-family:var(--mono); font-size:0.62rem; color:var(--text-dim); letter-spacing:0.08em; }
+    footer a { color:var(--gold); text-decoration:none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0}to{opacity:1} }
+    .reveal { opacity:0; transform:translateY(32px); transition:opacity 0.7s ease,transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-delay-1{transition-delay:0.1s} .reveal-delay-2{transition-delay:0.2s}
+    .reveal-delay-3{transition-delay:0.3s} .reveal-delay-4{transition-delay:0.4s}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px){
+      .about-grid{grid-template-columns:1fr;gap:2.5rem}
+      .expertise-grid{grid-template-columns:1fr 1fr}
+      .projects-grid{grid-template-columns:1fr}
+      .hero-stats{gap:1.5rem}
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      section{padding:70px max(1.5rem,calc((100% - 1100px)/2))}
+    }
+    @media(max-width:600px){
+      .expertise-grid{grid-template-columns:1fr}
+      h1{font-size:2.6rem}
+      .hero-stats{margin-top:3rem;gap:1.2rem}
+      .stat-num{font-size:1.7rem}
+      .pub-item{grid-template-columns:1fr;gap:0.4rem}
+      .hero-sub{font-size:0.72rem}
+      .btn-primary,.btn-ghost{padding:0.65rem 1.2rem;font-size:0.65rem}
+      nav{padding:0 1.25rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#hero" class="nav-logo">HB — PhD</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about"         data-i18n="nav_about">About</a></li>
+      <li><a href="#expertise"     data-i18n="nav_expertise">Expertise</a></li>
+      <li><a href="#research"      data-i18n="nav_research">Research</a></li>
+      <li><a href="#projects"      data-i18n="nav_projects">Projects</a></li>
+      <li><a href="#publications"  data-i18n="nav_pub">Publications</a></li>
+      <li><a href="#contact"       data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn"        onclick="setLang('de')">DE</button>
+      <button class="lang-btn"        onclick="setLang('es')">ES</button>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about"        data-i18n="nav_about"    onclick="closeMobile()">About</a>
+  <a href="#expertise"    data-i18n="nav_expertise" onclick="closeMobile()">Expertise</a>
+  <a href="#research"     data-i18n="nav_research"  onclick="closeMobile()">Research</a>
+  <a href="#projects"     data-i18n="nav_projects"  onclick="closeMobile()">Projects</a>
+  <a href="#publications" data-i18n="nav_pub"       onclick="closeMobile()">Publications</a>
+  <a href="#contact"      data-i18n="nav_contact"   onclick="closeMobile()">Contact</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn"        onclick="setLang('de')">DE</button>
+    <button class="lang-btn"        onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-tag" data-i18n="hero_tag">Data Strategy &amp; Research Intelligence</div>
+  <h1><span style="font-family:var(--mono);font-size:clamp(0.9rem,1.6vw,1.4rem);font-weight:400;color:var(--gold);letter-spacing:0.22em;display:block;margin-bottom:0.3em;">Dr.</span>Héctor<br><em>Briceño</em></h1>
+  <p class="hero-sub" data-i18n="hero_sub">
+    Quantitative Research &nbsp;·&nbsp; Strategic Analytics &nbsp;·&nbsp; PhD in Political Science<br>
+    Translating complex data into actionable intelligence for organizations<br>operating in high-uncertainty environments.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary" data-i18n="hero_cta1">View Projects ↓</a>
+    <a href="#contact"  class="btn-ghost"   data-i18n="hero_cta2">Get in Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label" data-i18n="stat1">Years of Experience</div></div>
+    <div class="stat-item"><div class="stat-num">1M+</div><div class="stat-label" data-i18n="stat_data">Data Records Processed</div></div>
+    <div class="stat-item"><div class="stat-num">137</div><div class="stat-label" data-i18n="stat3">Countries Politically Analysed</div></div>
+    <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label" data-i18n="stat4">Peer-reviewed Publications</div></div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section-label" data-i18n="about_label">About</div>
+  <h2 data-i18n="about_h2">Data Strategist<br>&amp; Political Scientist</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p data-i18n="about_p1">I am a <strong>data strategist and applied researcher</strong> based in Rostock, Germany, with a PhD in Political Science from the University of Rostock and more than fifteen years of experience designing and executing complex research projects across Europe and Latin America.</p>
+      <p data-i18n="about_p2">My work sits at the intersection of <strong>quantitative social science, strategic intelligence, and data visualization</strong>. I build the analytical pipelines, statistical models, and interactive dashboards that turn raw political and social data into clear, decision-ready intelligence.</p>
+      <p data-i18n="about_p3">I have worked with diplomatic missions, international organizations, research institutions, and multilateral organizations on political risk and economic dynamics. I also founded <strong>CENSUM</strong>, a data and political research consultancy operating since 2014.</p>
+      <p data-i18n="about_p4">I have contributed political analysis and opinion pieces to international media outlets in Germany, the Netherlands, Spain, Venezuela, Ecuador, and Brazil, including <strong>DW</strong> (Germany), <strong>RNW</strong> (Netherlands), <strong>La Razón</strong> &amp; <strong>Agenda Pública</strong> (Spain), <strong>Efecto Cocuyo</strong> (Venezuela), <strong>El Universo</strong> (Ecuador), and many others.</p>
+    </div>
+    <div class="about-sidebar reveal reveal-delay-2">
+      <div class="sidebar-card">
+        <div class="sidebar-card-title" data-i18n="tech_stack">Technical Stack</div>
+        <div class="tag-cloud">
+          <span class="tag">SPSS</span><span class="tag">Excel Advanced</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">D3.js</span><span class="tag">Chart.js</span><span class="tag">QGIS</span>
+          <span class="tag">OLS Regression</span><span class="tag">LDA</span><span class="tag">K-means</span>
+          <span class="tag">Random Forest</span><span class="tag">Artificial Intelligence</span>
+          <span class="tag">Survey Design</span><span class="tag">V-Dem</span><span class="tag">BTI</span>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-card-title" data-i18n="media_label">Media &amp; Press</div>
+        <div style="font-size:0.82rem;color:var(--text-mid);line-height:1.9;">
+          DW (Germany) · RNW (Netherlands) · La Razón (Spain) · Agenda Pública (Spain) · Efecto Cocuyo (Venezuela) · El Universo (Ecuador) · Posmonición Política
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-card-title" data-i18n="based_label">Based in</div>
+        <div style="font-size:0.9rem;color:var(--text-mid);">Rostock, Germany<br><span style="font-family:var(--mono);font-size:0.65rem;color:var(--text-dim);" data-i18n="remote_label">Open to remote &amp; on-site engagement</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERTISE ── -->
+<section id="expertise">
+  <div class="section-label" data-i18n="exp_label">Expertise</div>
+  <h2 data-i18n="exp_h2">What I Do</h2>
+  <p class="expertise-intro" data-i18n="exp_intro">Six core capabilities deployed — individually or in combination — to solve complex research, strategy, and intelligence challenges.</p>
+  <div class="expertise-grid reveal">
+    <!-- 1. Statistical Modelling -->
+    <div class="expertise-card">
+      <span class="exp-icon">◈</span>
+      <div class="exp-title" data-i18n="exp1_title">Statistical Modelling</div>
+      <div class="exp-tools">SPSS · Excel · OLS · LDA · K-means · AI Tools</div>
+      <div class="exp-desc" data-i18n="exp1_desc">Regression analysis, discriminant analysis, and clustering applied to large datasets — from model design to interpretation and communication, integrating AI-assisted workflows for accelerated pattern detection.</div>
+    </div>
+    <!-- 2. Political Risk -->
+    <div class="expertise-card">
+      <span class="exp-icon">◫</span>
+      <div class="exp-title" data-i18n="exp2_title">Political Risk</div>
+      <div class="exp-tools">V-Dem · BTI · Electoral Data · Regime Analysis</div>
+      <div class="exp-desc" data-i18n="exp2_desc">Deep expertise in electoral risk mapping, party system dynamics, democratic transitions, and regime change across Latin America and 137 countries globally.</div>
+    </div>
+    <!-- 3. Strategic Intelligence -->
+    <div class="expertise-card">
+      <span class="exp-icon">◎</span>
+      <div class="exp-title" data-i18n="exp3_title">Strategic Intelligence</div>
+      <div class="exp-tools">Executive Briefings · Advisory · Scenario Analysis</div>
+      <div class="exp-desc" data-i18n="exp3_desc">Translating multi-source data (quantitative models, field intelligence, open sources) into concise, actionable briefings for senior decision-makers.</div>
+    </div>
+    <!-- 4. Data Visualization -->
+    <div class="expertise-card">
+      <span class="exp-icon">▦</span>
+      <div class="exp-title" data-i18n="exp4_title">Data Visualization</div>
+      <div class="exp-tools">Power BI · D3.js · Chart.js · QGIS · EDA · AI Tools</div>
+      <div class="exp-desc" data-i18n="exp4_desc">Interactive dashboards in Power BI, geospatial electoral maps, choropleth visualizations, and exploratory data analysis that make complex findings immediately legible.</div>
+    </div>
+    <!-- 5. Project Management -->
+    <div class="expertise-card">
+      <span class="exp-icon">◬</span>
+      <div class="exp-title" data-i18n="exp5_title">Project Management</div>
+      <div class="exp-tools">KPI Design · Cross-functional Teams · IESA</div>
+      <div class="exp-desc" data-i18n="exp5_desc">Design, coordination, and delivery of complex research projects with cross-functional stakeholders, from scope definition to final deliverable.</div>
+    </div>
+    <!-- 6. Research & Survey Design -->
+    <div class="expertise-card">
+      <span class="exp-icon">◉</span>
+      <div class="exp-title" data-i18n="exp6_title">Research &amp; Survey Design</div>
+      <div class="exp-tools">Experimental Design · Sampling · Hypothesis Testing · AI Tools</div>
+      <div class="exp-desc" data-i18n="exp6_desc">End-to-end research architecture: hypothesis definition, instrument design, data collection strategy, and robust methodologies enhanced with AI-assisted analysis.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH HEADER ── -->
+<section id="research" style="background:#080C14;border-top:1px solid rgba(255,255,255,0.07);padding-bottom:0;">
+  <div class="section-label" data-i18n="research_label">Research &amp; Analysis</div>
+  <h2 data-i18n="research_h2">Interactive Dashboards</h2>
+  <p class="expertise-intro" data-i18n="research_intro">Selected research outputs presented as live, interactive analyses. Data, methodology, and visualizations embedded directly.</p>
+</section>
+
+<!-- ── DASHBOARD 0: Global Oil Markets ── -->
+<section id="research-oil" style="background:#0E1420;border-top:1px solid rgba(255,255,255,0.07);padding-top:60px;padding-bottom:80px;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 max(1.5rem,calc((100% - 1100px)/2));">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem;">
+      <div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem;">Global · 15 Countries · 5 Market Types · Briceño 2025</div>
+        <h3 style="font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:400;color:var(--text);line-height:1.15;">Global Mapping of<br><em style="color:var(--gold);">Illicit Petroleum Markets</em></h3>
+      </div>
+    </div>
+    <!-- Stats strip -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:2.5rem;">
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">15</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="oil_s1">Countries Mapped</div></div>
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">5</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="oil_s2">Market Typologies</div></div>
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">4</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="oil_s3">Continents</div></div>
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">2025</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="oil_s4">Published</div></div>
+    </div>
+    <!-- Typology grid -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:1.5rem;">
+      <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #C0392B;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:#C0392B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;" data-i18n="oil_t1_tag">Type I · State-Captured</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;color:var(--text);margin-bottom:0.6rem;" data-i18n="oil_t1_title">Institutional Capture</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;" data-i18n="oil_t1_desc">State apparatus directly controls illicit petroleum flows. Regime survival depends on resource rents extracted outside formal channels. Venezuela is the primary case.</div>
+      </div>
+      <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #E67E22;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:#E67E22;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;" data-i18n="oil_t2_tag">Type II · Hybrid</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;color:var(--text);margin-bottom:0.6rem;" data-i18n="oil_t2_title">Hybrid Control</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;" data-i18n="oil_t2_desc">Formal and informal actors coexist in a fragile equilibrium. State capacity is partially functional; illicit markets operate in spaces left by governance gaps.</div>
+      </div>
+      <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #C9A84C;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:#C9A84C;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;" data-i18n="oil_t3_tag">Type III · Criminal Networks</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;color:var(--text);margin-bottom:0.6rem;" data-i18n="oil_t3_title">Criminal Entrepreneurship</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;" data-i18n="oil_t3_desc">Organized crime drives market structure. State is largely absent or complicit at local level. Markets are highly adaptive and transnational.</div>
+      </div>
+      <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #4A90D9;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:#4A90D9;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;" data-i18n="oil_t4_tag">Type IV · Conflict-Driven</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;color:var(--text);margin-bottom:0.6rem;" data-i18n="oil_t4_title">War Economy</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;" data-i18n="oil_t4_desc">Armed conflict is the structural driver of illicit markets. Petroleum revenues finance armed groups; control over fields is a war objective.</div>
+      </div>
+      <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #1A9E8F;">
+        <div style="font-family:var(--mono);font-size:0.6rem;color:#1A9E8F;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.6rem;" data-i18n="oil_t5_tag">Type V · Subsidy Arbitrage</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;color:var(--text);margin-bottom:0.6rem;" data-i18n="oil_t5_title">Arbitrage Markets</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;" data-i18n="oil_t5_desc">Price differentials created by fuel subsidies generate systematic arbitrage. Smuggling is socially normalized and driven by economic incentives rather than organized crime.</div>
+      </div>
+      <div style="background:#141B2A;padding:1.5rem;display:flex;flex-direction:column;justify-content:center;border-top:3px solid var(--border);">
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;" data-i18n="method_label">Methodology</div>
+        <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.7;" data-i18n="oil_method">Original five-category typology for illicit petroleum markets developed by Dr. Briceño (2025), combining qualitative comparative analysis with geospatial visualization via D3.js/TopoJSON. Filterable choropleth world map covering 15 countries across 4 continents.</p>
+        <div style="margin-top:1rem;font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);">Briceño, H. (2025) · D3.js · TopoJSON · Choropleth</div>
+      </div>
+    </div>
+    <!-- Interactive D3 world map (Briceño 2025) -->
+    <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;">
+      <div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;" data-i18n="oil_chart_label">Interactive Map · Illicit Petroleum Markets · 15 Countries</div>
+      <!-- Legend -->
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:0.75rem;">
+        <span style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);">Est. annual losses:</span>
+        <span style="display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:0.58rem;color:#8A95A8;"><span style="width:10px;height:10px;background:#FAC775;border-radius:2px;display:inline-block;"></span>&lt;$0.5B</span>
+        <span style="display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:0.58rem;color:#8A95A8;"><span style="width:10px;height:10px;background:#EF9F27;border-radius:2px;display:inline-block;"></span>$0.5–1B</span>
+        <span style="display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:0.58rem;color:#8A95A8;"><span style="width:10px;height:10px;background:#BA7517;border-radius:2px;display:inline-block;"></span>$1–5B</span>
+        <span style="display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:0.58rem;color:#8A95A8;"><span style="width:10px;height:10px;background:#A32D2D;border-radius:2px;display:inline-block;"></span>$5–15B</span>
+        <span style="display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:0.58rem;color:#8A95A8;"><span style="width:10px;height:10px;background:#501313;border-radius:2px;display:inline-block;"></span>&gt;$15B</span>
+      </div>
+      <!-- Filter buttons -->
+      <div id="oilFilterRow" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:0.9rem;">
+        <button class="oil-filter-btn active" data-type="all"         style="font-family:var(--mono);font-size:0.59rem;padding:0.28rem 0.7rem;border:0.5px solid rgba(255,255,255,0.2);border-radius:20px;background:rgba(255,255,255,0.08);color:#E4E8F0;cursor:pointer;transition:all 0.15s;" data-i18n="oil_filter_all">All</button>
+        <button class="oil-filter-btn" data-type="pipeline"           style="font-family:var(--mono);font-size:0.59rem;padding:0.28rem 0.7rem;border:0.5px solid rgba(255,255,255,0.12);border-radius:20px;background:transparent;color:#8A95A8;cursor:pointer;transition:all 0.15s;" data-i18n="oil_filter_pipeline">Pipeline tapping</button>
+        <button class="oil-filter-btn" data-type="smuggling"          style="font-family:var(--mono);font-size:0.59rem;padding:0.28rem 0.7rem;border:0.5px solid rgba(255,255,255,0.12);border-radius:20px;background:transparent;color:#8A95A8;cursor:pointer;transition:all 0.15s;" data-i18n="oil_filter_smuggling">Smuggling</button>
+        <button class="oil-filter-btn" data-type="sanctions"          style="font-family:var(--mono);font-size:0.59rem;padding:0.28rem 0.7rem;border:0.5px solid rgba(255,255,255,0.12);border-radius:20px;background:transparent;color:#8A95A8;cursor:pointer;transition:all 0.15s;" data-i18n="oil_filter_sanctions">Sanctions evasion</button>
+        <button class="oil-filter-btn" data-type="adulteration"       style="font-family:var(--mono);font-size:0.59rem;padding:0.28rem 0.7rem;border:0.5px solid rgba(255,255,255,0.12);border-radius:20px;background:transparent;color:#8A95A8;cursor:pointer;transition:all 0.15s;" data-i18n="oil_filter_adulteration">Adulteration</button>
+      </div>
+      <!-- Map -->
+      <div id="oilMapWrap" style="position:relative;width:100%;background:#060B12;overflow:hidden;border:1px solid rgba(255,255,255,0.05);">
+        <svg id="oilWorldMap" viewBox="0 0 800 420" style="width:100%;display:block;" aria-label="Global illicit petroleum markets map"></svg>
+        <div id="oilTooltip" style="display:none;position:absolute;background:#1A2236;border:0.5px solid rgba(201,168,76,0.6);border-radius:6px;padding:10px 13px;font-family:'IBM Plex Mono',monospace;font-size:0.62rem;pointer-events:none;z-index:20;max-width:240px;color:#E4E8F0;box-shadow:0 4px 16px rgba(0,0,0,0.5);">
+          <div id="oilTtName" style="font-weight:600;font-size:0.7rem;margin-bottom:4px;"></div>
+          <div id="oilTtLoss" style="color:#EF9F27;font-weight:500;margin-bottom:3px;"></div>
+          <div id="oilTtType" style="color:#8A95A8;font-size:0.6rem;"></div>
+        </div>
+      </div>
+      <!-- Detail panel -->
+      <div id="oilDetailPanel" style="background:#0E1420;border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:14px 16px;margin-top:10px;min-height:60px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:#4A5568;">Click a highlighted country to see its data sheet.</div>
+      </div>
+      <!-- Table tabs -->
+      <div style="display:flex;gap:4px;margin-top:1.1rem;border-bottom:0.5px solid rgba(255,255,255,0.07);">
+        <button class="oil-tab active" data-tab="oilTabTable"    style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;padding:6px 12px;cursor:pointer;color:#8A95A8;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;border-top:none;border-left:none;border-right:none;transition:all 0.15s;" data-i18n="oil_tab_data">Database</button>
+        <button class="oil-tab"        data-tab="oilTabTypology" style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;padding:6px 12px;cursor:pointer;color:#8A95A8;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;border-top:none;border-left:none;border-right:none;transition:all 0.15s;" data-i18n="oil_tab_typology">Typology</button>
+      </div>
+      <div id="oilTabTable" style="overflow-x:auto;margin-top:6px;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.72rem;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.12);color:#4A5568;font-family:'IBM Plex Mono',monospace;font-weight:500;background:#0E1420;white-space:nowrap;" data-i18n="oil_col_country">Country</th>
+              <th style="text-align:left;padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.12);color:#4A5568;font-family:'IBM Plex Mono',monospace;font-weight:500;background:#0E1420;white-space:nowrap;" data-i18n="oil_col_region">Region</th>
+              <th style="text-align:left;padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.12);color:#4A5568;font-family:'IBM Plex Mono',monospace;font-weight:500;background:#0E1420;white-space:nowrap;" data-i18n="oil_col_type">Type</th>
+              <th style="text-align:left;padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.12);color:#4A5568;font-family:'IBM Plex Mono',monospace;font-weight:500;background:#0E1420;white-space:nowrap;" data-i18n="oil_col_loss">Est. Losses/yr</th>
+              <th style="text-align:left;padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.12);color:#4A5568;font-family:'IBM Plex Mono',monospace;font-weight:500;background:#0E1420;white-space:nowrap;" data-i18n="oil_col_actors">Key Actors</th>
+            </tr>
+          </thead>
+          <tbody id="oilTableBody"></tbody>
+        </table>
+      </div>
+      <div id="oilTabTypology" style="display:none;margin-top:10px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;">
+          <div style="background:#0E1420;border:0.5px solid rgba(255,255,255,0.07);border-radius:6px;padding:12px 14px;border-top:2px solid #EF9F27;"><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#EF9F27;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Pipeline Tapping</div><div style="font-size:0.75rem;color:#8A95A8;line-height:1.6;margin-bottom:6px;">Illegal perforation of pipelines (huachicoleo, bunkering). Actors: cartels, militants, corrupt state oil employees.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#E4E8F0;">Mexico · Nigeria · Colombia · Brazil · Indonesia</div></div>
+          <div style="background:#0E1420;border:0.5px solid rgba(255,255,255,0.07);border-radius:6px;padding:12px 14px;border-top:2px solid #A32D2D;"><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#A32D2D;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Cross-border Smuggling</div><div style="font-size:0.75rem;color:#8A95A8;line-height:1.6;margin-bottom:6px;">Subsidy arbitrage and smuggling between countries with different fuel prices. Land and maritime routes.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#E4E8F0;">Libya · Iraq · Malaysia · Algeria · Turkey · Ecuador</div></div>
+          <div style="background:#0E1420;border:0.5px solid rgba(255,255,255,0.07);border-radius:6px;padding:12px 14px;border-top:2px solid #4A90D9;"><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#4A90D9;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Sanctions Evasion</div><div style="font-size:0.75rem;color:#8A95A8;line-height:1.6;margin-bottom:6px;">Shadow fleets, ship-to-ship transfers, falsified origin documents. State or para-state scale.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#E4E8F0;">Russia · Iran · Venezuela · North Korea</div></div>
+          <div style="background:#0E1420;border:0.5px solid rgba(255,255,255,0.07);border-radius:6px;padding:12px 14px;border-top:2px solid #1A9E8F;"><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#1A9E8F;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Adulteration / Fiscal Fraud</div><div style="font-size:0.75rem;color:#8A95A8;line-height:1.6;margin-bottom:6px;">Blending stolen fuel with legal product, false product declarations, special tax evasion.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#E4E8F0;">Philippines · Mexico (fiscal) · Turkey</div></div>
+          <div style="background:#0E1420;border:0.5px solid rgba(255,255,255,0.07);border-radius:6px;padding:12px 14px;border-top:2px solid #C9A84C;"><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#C9A84C;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Subsidised Parallel Market</div><div style="font-size:0.75rem;color:#8A95A8;line-height:1.6;margin-bottom:6px;">Buying subsidised fuel for black market resale or illegal export with large margins.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#E4E8F0;">Libya · Iraq · Iran · Venezuela</div></div>
+        </div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.58rem;color:#4A5568;margin-top:0.9rem;line-height:1.6;">Sources: NEITI (2024), The Sentry (2025), Reuters, KSE (2024), Crisis Group (2025), FTI Consulting (2025), InSight Crime (2026), ADB, Atlantic Council, Bloomberg (2024). Typology: Briceño, H. (2025). <em>Illicit Oil and Gasoline Markets in Latin America</em>. Posmonición Política. Map: D3.js · TopoJSON · Natural Earth.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DASHBOARD 1: Electoral Risk Map ── -->
+<section id="research-risk" style="background:#080C14;border-top:1px solid rgba(255,255,255,0.07);padding-top:60px;padding-bottom:80px;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 max(1.5rem,calc((100% - 1100px)/2));">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem;">
+      <div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem;">Venezuela · June 2024 · Published: Observa Democracia</div>
+        <h3 style="font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:400;color:var(--text);line-height:1.15;">Electoral Risk Map<br><em style="color:var(--gold);">Venezuelan Presidential Election 2024</em></h3>
+      </div>
+      <a href="https://observademocracia.org/mapeo-de-riesgos-electorales-venezuela-elecciones-presidenciales-2024/" target="_blank" style="font-family:var(--mono);font-size:0.65rem;color:var(--gold);border:1px solid rgba(201,168,76,0.4);padding:0.5rem 1rem;text-decoration:none;white-space:nowrap;">↗ Full Report</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:2.5rem;">
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">85.6%</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="risk_s1">Centers at Risk</div></div>
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">15,923</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="risk_s2">Voting Centers</div></div>
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">18.5M+</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="risk_s3">Voters Affected</div></div>
+      <div style="background:#141B2A;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">6</div><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="risk_s4">Risk Indicators</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+      <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Global Risk Distribution · 15,923 Centers</div><canvas id="riskGlobal" height="200"></canvas></div>
+      <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Risk by Dimension · Centers</div><canvas id="riskDimension" height="200"></canvas></div>
+      <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Risk by Indicator · % of Centers</div><canvas id="riskIndicator" height="200"></canvas></div>
+      <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Govt. Vote Share by Risk Level · Regionales 2021 (avg = 45.4%)</div><canvas id="riskVote" height="200"></canvas></div>
+    </div>
+    <div style="border-left:2px solid rgba(201,168,76,0.3);padding:1rem 1.5rem;background:rgba(201,168,76,0.04);"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;" data-i18n="method_label">Methodology</div><p style="font-size:0.82rem;color:var(--text-mid);line-height:1.7;" data-i18n="risk_method">Six binary indicators across two dimensions: Administrative Risk (new centers, size ≤500 voters, voter variation &gt;±15%) and Electoral Risk (abstention &gt;50% or &lt;11.4%, opposition dominance &gt;75%, government dominance &gt;75%). Composite Global Risk Index: 0–4. Data: Registro Electoral preliminar, April 2024; Elecciones Regionales 2021.</p></div>
+  </div>
+</section>
+
+<!-- ── DASHBOARD 2: BTI ── -->
+<section id="research-bti" style="background:#0E1420;border-top:1px solid rgba(255,255,255,0.07);padding-top:60px;padding-bottom:80px;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 max(1.5rem,calc((100% - 1100px)/2));">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem;">
+      <div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem;">137 Countries · 2006–2026 · Bertelsmann Transformation Index</div>
+        <h3 style="font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:400;color:var(--text);line-height:1.15;">Political Regime Transformation<br><em style="color:var(--gold);">BTI Dashboard 2006–2026</em></h3>
+      </div>
+      <a href="https://www.posmonicionpolitica.com/2026/04/dashboard-bti-2026-challenges-and.html" target="_blank" style="font-family:var(--mono);font-size:0.65rem;color:var(--gold);border:1px solid rgba(201,168,76,0.4);padding:0.5rem 1rem;text-decoration:none;white-space:nowrap;">↗ Live Dashboard</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-bottom:2.5rem;">
+      <div style="background:#0E1420;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">137</div><div style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="bti_s1">Countries</div></div>
+      <div style="background:#0E1420;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">1,507</div><div style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="bti_s2">Observations</div></div>
+      <div style="background:#0E1420;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">20</div><div style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="bti_s3">Years of Data</div></div>
+      <div style="background:#0E1420;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">71.5%</div><div style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="bti_s4">RF Accuracy</div></div>
+      <div style="background:#0E1420;padding:1.2rem 1rem;text-align:center;"><div style="font-family:var(--serif);font-size:1.8rem;color:var(--gold);">0</div><div style="font-family:var(--mono);font-size:0.58rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-top:0.3rem;" data-i18n="bti_s5">Pole Crossings</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+      <div style="background:#0E1420;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Regime Distribution · 2026 · 137 Countries</div><canvas id="btiDonut" height="220"></canvas></div>
+      <div style="background:#0E1420;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Regime Trends · % of Countries · 2006–2026</div><canvas id="btiTrend" height="220"></canvas></div>
+      <div style="background:#0E1420;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Structural Stability · Regime Typology (2006→2026)</div><canvas id="btiStability" height="220"></canvas></div>
+      <div style="background:#0E1420;border:1px solid rgba(201,168,76,0.25);padding:2rem;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;" data-i18n="key_finding">Key Finding</div>
+        <p style="font-family:var(--serif);font-size:1.1rem;color:var(--text);line-height:1.6;margin-bottom:1.2rem;" data-i18n="bti_finding">"The world is polarized into two nearly equal blocs — <em>50 stable autocracies</em> and <em>50 stable democracies</em> — with zero crossings between poles over 20 years."</p>
+        <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.6;" data-i18n="bti_finding2">Autocracy share grew from 33.9% (2006) to 36.5% (2026). The sharpest contraction is in unstable regimes — the middle ground is shrinking as countries polarize toward either pole.</p>
+        <div style="margin-top:1.2rem;font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);">Analysis: Dr. Héctor Briceño · Data: Bertelsmann Stiftung, BTI 2006–2026</div>
+      </div>
+    </div>
+    <div style="border-left:2px solid rgba(201,168,76,0.3);padding:1rem 1.5rem;background:rgba(201,168,76,0.04);"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;" data-i18n="method_label">Methodology</div><p style="font-size:0.82rem;color:var(--text-mid);line-height:1.7;" data-i18n="bti_method">Original five-category regime typology (Stable Autocracies, New Autocracies, Unstable Regimes, New Democracies, Stable Democracies) based on BTI Democracy Status trajectories across 11 biennial waves. Analysis: descriptive statistics, one-way ANOVA, and Random Forest classification (5-fold cross-validation, 71.5% accuracy). This typology is not part of BTI's official classification.</p></div>
+  </div>
+</section>
+
+<!-- ── DASHBOARD 3: Scenarios ── -->
+<section id="research-scenarios" style="background:#0E1420;border-top:1px solid rgba(255,255,255,0.07);padding-top:60px;padding-bottom:80px;">
+  <div style="max-width:1100px;margin:0 auto;padding:0 max(1.5rem,calc((100% - 1100px)/2));">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem;">
+      <div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem;">Venezuela · 2024–2025 · Political Intelligence Reports</div>
+        <h3 style="font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:400;color:var(--text);line-height:1.15;">Venezuela Political Scenarios<br><em style="color:var(--gold);">2024–2025 Outlook</em></h3>
+      </div>
+    </div>
+    <div style="display:flex;gap:0;margin-bottom:2rem;border:1px solid rgba(255,255,255,0.07);">
+      <button id="tab-esc" onclick="switchTab('esc')" style="flex:1;padding:0.75rem 1rem;background:#1A2236;border:none;border-right:1px solid var(--border);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);cursor:pointer;" data-i18n="tab1">① Sociopolitical Scenarios 2025</button>
+      <button id="tab-risk" onclick="switchTab('risk')" style="flex:1;padding:0.75rem 1rem;background:#0E1420;border:none;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-mid);cursor:pointer;" data-i18n="tab2">② Risk Venezuela 2025–2026</button>
+    </div>
+    <div id="panel-esc">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+        <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;">
+          <div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;" data-i18n="matrix_label">Scenario Matrix — Two Key Variables</div>
+          <svg viewBox="0 0 460 400" style="width:100%;height:auto;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <rect width="460" height="400" fill="#141B2A"/>
+            <rect x="30" y="30" width="200" height="170" fill="rgba(192,57,43,0.06)"/>
+            <rect x="230" y="30" width="200" height="170" fill="rgba(201,168,76,0.06)"/>
+            <rect x="30" y="200" width="200" height="170" fill="rgba(74,144,217,0.06)"/>
+            <rect x="230" y="200" width="200" height="170" fill="rgba(26,158,143,0.06)"/>
+            <line x1="230" y1="20" x2="230" y2="380" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="20" y1="200" x2="440" y2="200" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,3"/>
+            <polygon points="230,14 225,24 235,24" fill="rgba(255,255,255,0.3)"/>
+            <polygon points="446,200 436,195 436,205" fill="rgba(255,255,255,0.3)"/>
+            <text x="232" y="12" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#4A5568">Gov. delegitimization ↑</text>
+            <text x="232" y="395" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#4A5568">Gov. legitimization ↓</text>
+            <text x="22" y="198" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#4A5568">← Opp. weakened</text>
+            <text x="300" y="198" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#4A5568">Opp. strengthened →</text>
+            <circle cx="90" cy="345" r="16" fill="rgba(192,57,43,0.25)" stroke="#C0392B" stroke-width="1.5"/>
+            <text x="90" y="342" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#C0392B" text-anchor="middle" font-weight="bold">S0</text>
+            <text x="90" y="353" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#C0392B" text-anchor="middle">≈0%</text>
+            <text x="90" y="372" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8A95A8" text-anchor="middle">Rev. Reloaded</text>
+            <circle cx="90" cy="80" r="18" fill="rgba(192,57,43,0.18)" stroke="#C0392B" stroke-width="1.5"/>
+            <text x="90" y="77" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#C0392B" text-anchor="middle" font-weight="bold">S1</text>
+            <text x="90" y="88" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#C0392B" text-anchor="middle">Low</text>
+            <text x="90" y="107" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8A95A8" text-anchor="middle">Con el Mazo</text>
+            <circle cx="175" cy="75" r="20" fill="rgba(201,168,76,0.2)" stroke="#C9A84C" stroke-width="1.5"/>
+            <text x="175" y="72" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#C9A84C" text-anchor="middle" font-weight="bold">S2</text>
+            <text x="175" y="83" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#C9A84C" text-anchor="middle">Med</text>
+            <text x="175" y="106" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8A95A8" text-anchor="middle">Huída Perpetua</text>
+            <circle cx="280" cy="85" r="22" fill="rgba(74,144,217,0.2)" stroke="#4A90D9" stroke-width="1.5"/>
+            <text x="280" y="82" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#4A90D9" text-anchor="middle" font-weight="bold">S3</text>
+            <text x="280" y="93" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#4A90D9" text-anchor="middle">Med-H</text>
+            <text x="280" y="116" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8A95A8" text-anchor="middle">Fuerzas Igualadas</text>
+            <circle cx="370" cy="75" r="20" fill="rgba(26,158,143,0.2)" stroke="#1A9E8F" stroke-width="1.5"/>
+            <text x="370" y="72" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#1A9E8F" text-anchor="middle" font-weight="bold">S4</text>
+            <text x="370" y="83" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#1A9E8F" text-anchor="middle">Low</text>
+            <text x="370" y="106" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8A95A8" text-anchor="middle">Negociaciones</text>
+            <circle cx="415" cy="55" r="16" fill="rgba(26,158,143,0.15)" stroke="#1A9E8F" stroke-width="1" stroke-dasharray="3,2"/>
+            <text x="415" y="52" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="#1A9E8F" text-anchor="middle" font-weight="bold">S5</text>
+            <text x="415" y="63" font-family="'IBM Plex Mono',monospace" font-size="6.5" fill="#1A9E8F" text-anchor="middle">V.Low</text>
+            <text x="415" y="81" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#8A95A8" text-anchor="middle">Transición</text>
+            <text x="230" y="395" font-family="'IBM Plex Mono',monospace" font-size="7" fill="#4A5568" text-anchor="middle">Circle size = relative probability · Briceño 2024 for Ideas por la Democracia</text>
+          </svg>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem;" data-i18n="scen_desc_label">Scenario Descriptions</div>
+          <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #C0392B;padding:0.7rem 0.9rem;"><div style="font-family:var(--mono);font-size:0.63rem;color:#C0392B;margin-bottom:0.2rem;">S0 · Revolución Reloaded <span style="color:var(--text-dim);">· ~0%</span></div><div style="font-size:0.76rem;color:var(--text-mid);line-height:1.5;" data-i18n="s0_desc">Chavismo reconnects with its base through economic benefits, revolutionary ideology, and charismatic leadership. Near-zero probability.</div></div>
+          <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #C0392B;padding:0.7rem 0.9rem;"><div style="font-family:var(--mono);font-size:0.63rem;color:#C0392B;margin-bottom:0.2rem;">S1 · Con el Mazo <span style="color:var(--text-dim);">· Low</span></div><div style="font-size:0.76rem;color:var(--text-mid);line-height:1.5;" data-i18n="s1_desc">Increased internal and external repression. Chavismo divided; radical factions gain power. Opposition fragmented. Unsustainable crisis scenario.</div></div>
+          <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #C9A84C;padding:0.7rem 0.9rem;"><div style="font-family:var(--mono);font-size:0.63rem;color:#C9A84C;margin-bottom:0.2rem;">S2 · Huída Perpetua <span style="color:var(--text-dim);">· Medium</span></div><div style="font-size:0.76rem;color:var(--text-mid);line-height:1.5;" data-i18n="s2_desc">Chavismo builds economic bubble, calls mega-elections, passes restrictive laws. Maximum opposition division. Most stable scenario for the regime.</div></div>
+          <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #4A90D9;padding:0.7rem 0.9rem;"><div style="font-family:var(--mono);font-size:0.63rem;color:#4A90D9;margin-bottom:0.2rem;">S3 · Fuerzas Igualadas <span style="color:var(--text-dim);">· Med-High</span></div><div style="font-size:0.76rem;color:var(--text-mid);line-height:1.5;" data-i18n="s3_desc">Opposition stays unified. Normalization narrative fails. A frozen conflict — war of attrition that can evolve toward S4/S5 or S0/S2.</div></div>
+          <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #1A9E8F;padding:0.7rem 0.9rem;"><div style="font-family:var(--mono);font-size:0.63rem;color:#1A9E8F;margin-bottom:0.2rem;">S4 · Negociaciones <span style="color:var(--text-dim);">· Low</span></div><div style="font-size:0.76rem;color:var(--text-mid);line-height:1.5;" data-i18n="s4_desc">Opposition imposes legitimacy on moderate chavista factions. Negotiated democratic reinstitutionalization path. Requires international guarantees.</div></div>
+          <div style="background:#141B2A;border:1px solid rgba(26,158,143,0.3);border-left:3px dashed #1A9E8F;padding:0.7rem 0.9rem;"><div style="font-family:var(--mono);font-size:0.63rem;color:#1A9E8F;margin-bottom:0.2rem;">S5 · Transición Democrática <span style="color:var(--text-dim);">· Very low</span></div><div style="font-size:0.76rem;color:var(--text-mid);line-height:1.5;" data-i18n="s5_desc">Acute internal chavista conflict. Weakened factions cooperate with opposition for short-term democratic transition. Requires prior implosion of the governing coalition.</div></div>
+        </div>
+      </div>
+      <div style="border-left:2px solid rgba(201,168,76,0.3);padding:1rem 1.5rem;background:rgba(201,168,76,0.04);"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;" data-i18n="source_label">Source</div><p style="font-size:0.82rem;color:var(--text-mid);line-height:1.7;">Briceño, H. (December 2024). <em style="color:var(--text);">Escenarios Sociopolíticos Venezuela 2025. La lucha por la legitimidad postelectoral.</em> Elaborado para Ideas por la Democracia, Caracas. Methodology: 4-stage scenario construction with civil society leaders (May 2023–December 2024).</p></div>
+    </div>
+    <div id="panel-risk" style="display:none;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:1.5rem;">
+        <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #4A90D9;"><div style="font-family:var(--mono);font-size:0.6rem;color:#4A90D9;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;" data-i18n="scA_tag">Scenario A · Short-term</div><div style="font-family:var(--serif);font-size:1.2rem;color:var(--text);margin-bottom:0.75rem;" data-i18n="scA_title">Deterrence</div><div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;margin-bottom:1rem;" data-i18n="scA_desc">US military presence causes internal fractures in the government-military-police alliance. Three-actor negotiation: chavismo, USA, and opposition (MCM/EGU).</div><div style="font-family:var(--mono);font-size:0.65rem;color:#4A90D9;border-top:1px solid rgba(255,255,255,0.07);padding-top:0.75rem;" data-i18n="scA_out">→ Negotiated civilian-led transition (forced by military)</div></div>
+        <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #C9A84C;"><div style="font-family:var(--mono);font-size:0.6rem;color:#C9A84C;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;" data-i18n="scB_tag">Scenario B · Mid-term</div><div style="font-family:var(--serif);font-size:1.2rem;color:var(--text);margin-bottom:0.75rem;" data-i18n="scB_title">Surrender</div><div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;margin-bottom:1rem;" data-i18n="scB_desc">Low-intensity US military intervention. Specific missions in Venezuelan territory achieve FANB surrender. Military high command negotiates transition independently.</div><div style="font-family:var(--mono);font-size:0.65rem;color:#C9A84C;border-top:1px solid rgba(255,255,255,0.07);padding-top:0.75rem;" data-i18n="scB_out">→ Military-led transition; political actors secondary</div></div>
+        <div style="background:#141B2A;padding:1.5rem;border-top:3px solid #C0392B;"><div style="font-family:var(--mono);font-size:0.6rem;color:#C0392B;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;" data-i18n="scC_tag">Scenario C · Long-term</div><div style="font-family:var(--serif);font-size:1.2rem;color:var(--text);margin-bottom:0.75rem;" data-i18n="scC_title">Confrontation</div><div style="font-size:0.8rem;color:var(--text-mid);line-height:1.7;margin-bottom:1rem;" data-i18n="scC_desc">Extensive war across Venezuelan territory. Active US intervention + FANB internal split. Most violent, most uncertain outcome. Military commanders displace all political leadership.</div><div style="font-family:var(--mono);font-size:0.65rem;color:#C0392B;border-top:1px solid rgba(255,255,255,0.07);padding-top:0.75rem;" data-i18n="scC_out">→ Unpredictable — military fully displaces politics</div></div>
+      </div>
+      <div style="background:#141B2A;border:1px solid rgba(74,144,217,0.2);border-left:3px solid var(--text-dim);padding:1.5rem;margin-bottom:1.5rem;"><div style="font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;" data-i18n="alt_tag">Alternative Scenario · If force variable dissolves</div><div style="font-family:var(--serif);font-size:1.15rem;color:var(--text);margin-bottom:0.75rem;" data-i18n="alt_title">Authoritarian Consolidation 2026</div><div style="font-size:0.82rem;color:var(--text-mid);line-height:1.7;" data-i18n="alt_desc">Without US military pressure, chavismo advances institutional reforms, rebuilds regional alliances (Colombia, Brazil), exploits maximum opposition fragmentation. Political despair fuels new migration wave.</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+        <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Internal Cohesion Index · Government &amp; Opposition Elites</div><canvas id="cohesionChart" height="200"></canvas></div>
+        <div style="background:#141B2A;border:1px solid rgba(255,255,255,0.07);padding:1.5rem;"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Force Variable Matrix — US Military Scenarios</div><canvas id="forceMatrix" height="200"></canvas></div>
+      </div>
+      <div style="border-left:2px solid rgba(201,168,76,0.3);padding:1rem 1.5rem;background:rgba(201,168,76,0.04);"><div style="font-family:var(--mono);font-size:0.62rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;" data-i18n="source_label">Source</div><p style="font-size:0.82rem;color:var(--text-mid);line-height:1.7;">Risk-Venezuela (October 2025). <em style="color:var(--text);">Political Outlook: Venezuela 2025–2026.</em> Analysis prepared by Héctor Briceño. Three force-based scenarios (Deterrence, Surrender, Confrontation) plus one alternative (Authoritarian Consolidation). Variables: military resources, willingness to use force, internal legitimacy within FANB.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Chart.js + scenario scripts -->
+<!-- D3 + TopoJSON for oil world map -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+// ── Oil market database (Briceño 2025) ──────────────────────
+const OIL_DB = {
+  484:{name:'Mexico',       region:'Latin America',    types:['Pipeline tapping','Fiscal fraud','Adulteration'],   actors:['CJNG','Gulf Cartel','Zetas','Pemex corruption'],           loss:1.5, lossLabel:'~$1.5B/yr',   typeCode:'pipeline',    note:'Pemex lost $3.8B over 5 years; 14,890 clandestine taps in 2023; up to 30% of gasoline may be illicit (Onexpo, 2025). Huachicol finances major cartels.',                   source:'FTI Consulting 2025; InSight Crime 2026'},
+  566:{name:'Nigeria',      region:'West Africa',      types:['Pipeline tapping','Illegal bunkering','Artisanal refining'], actors:['MEND','Organized crime','Tantita Security (Tompolo)'],loss:12,  lossLabel:'~$10–15B/yr', typeCode:'pipeline',    note:'NEITI: $46.16B lost 2007–2020. 400,000 bpd stolen daily. Trans-Niger pipeline offline one year: $5.45B in losses.',                                                     source:'NEITI 2024; Business Day 2025'},
+  434:{name:'Libya',        region:'North Africa',     types:['Subsidy smuggling','Maritime network','Illicit export'],     actors:['Haftar forces','Dbeibah militia','Wagner/RSF','Russia intermediaries'],loss:6.5,lossLabel:'~$6–7B/yr',  typeCode:'smuggling',   note:'The Sentry: $20B in losses 2022–2024. 40% of imported fuel (Audit Bureau) smuggled. Oil barter system managed by UAE ghost companies.',                               source:'Bloomberg 2024; The Sentry 2025; Crisis Group 2025'},
+  364:{name:'Iran',         region:'Middle East',      types:['Sanctions evasion','Ghost fleet','Border smuggling'],        actors:['IRGC','Maritime operators','Gulf/China intermediaries'], loss:54,  lossLabel:'$53–54B exports (2022–23)',typeCode:'sanctions',  note:'EIA: ~1.4M bpd exported in 2023 despite full sanctions. Routes to China, India, Pakistan, Turkey. Panama de-registered 650 Iran-linked ships in 2025.',             source:'EIA 2024; UANI; Wikipedia Oil smuggling in Iran 2025'},
+  368:{name:'Iraq',         region:'Middle East',      types:['Diverted subsidised HFO','Border smuggling','Iran blending'],actors:['Asaib Ahl al-Haq','Kataib Hezbollah','PMF'],           loss:2,   lossLabel:'$1–3B/yr',   typeCode:'smuggling',   note:'Reuters: 3.4–5M barrels HFO/month diverted to Asia from subsidised asphalt plants. PMF controls at least 72 oil fields in northern Iraq.',                           source:'Reuters 2024; Global Initiative 2023'},
+  643:{name:'Russia',       region:'Europe/Central Asia',types:['Shadow fleet','G7 price cap evasion','Ship-to-ship'],     actors:['Russian state','UAE/HK intermediaries','Anonymous operators','Front companies'],loss:9.4,lossLabel:'$9.4B extra in 2024',typeCode:'sanctions', note:'KSE: 400–1,400 vessels; 4.1M bpd Jun 2024; 70% seaborne exports via shadow fleet; $10B invested since 2022. US sanctioned 183 vessels Jan 2025.',              source:'KSE 2024; EU Parliament 2024'},
+  458:{name:'Malaysia',     region:'Asia Pacific',     types:['Subsidy smuggling','Illegal maritime transfers'],            actors:['Criminal networks','Fishermen','Regional intermediaries'],loss:0.54,lossLabel:'~$0.54B/yr',  typeCode:'smuggling',   note:'3M litres/day by land to Thailand ($1.2B/yr damage). Illegal ship-to-ship transfers off Penang. Destinations: Philippines, Indonesia, Thailand.',                source:'Ralby et al. 2017; ADB 2016'},
+  608:{name:'Philippines',  region:'Asia Pacific',     types:['Fuel adulteration','Smuggling'],                            actors:['Illegal importers','Informal distribution networks'],   loss:0.75,lossLabel:'~$750M/yr (tax)', typeCode:'adulteration', note:'ADB: fuel adulteration cost up to $750M/yr in lost tax revenues. Entire supply chain compromised by blending legal and illegal product.',                           source:'ADB 2016; Atlantic Council 2021'},
+  792:{name:'Turkey',       region:'Europe/Central Asia',types:['Illegal imports','Iran smuggling','Fiscal fraud'],        actors:['Intermediaries','Kurdish networks','Van–Iran border traffic'],loss:2.5,lossLabel:'~$2.5B/yr (tax)',typeCode:'smuggling',   note:'2.7M tonnes contraband/year. Cars in Turkey +70% (2003–2010), registered fuel consumption only +20%. Cheap Iranian diesel via Van.',                            source:'Ralby et al. 2017; Apirasol 2022'},
+   12:{name:'Algeria',      region:'North Africa',     types:['Border smuggling','Subsidy arbitrage'],                     actors:['Sahel informal networks','Border tribal groups'],        loss:1.3, lossLabel:'~$1.3B/yr',   typeCode:'smuggling',   note:'Algerian authorities (2013): $1.3B/yr in losses from subsidised fuel smuggling to neighbouring Sahel countries (Mali, Niger, Libya, Tunisia).',                 source:'Al Makhifi 2013; Apirasol 2022'},
+  170:{name:'Colombia',     region:'Latin America',    types:['Pipeline sabotage','War economies','Smuggling'],            actors:['ELN','FARC dissidents','Organized crime'],              loss:0.5, lossLabel:'Hundreds of M/yr',typeCode:'pipeline',   note:'Trans-Andean pipeline offline during 2024 (Reuters). ELN uses sabotage for territorial control and financing. Cheap Ecuadorian gasoline finances narco in Colombia.',source:'Reuters 2024; Crisis Group'},
+  862:{name:'Venezuela',    region:'Latin America',    types:['Illicit exports','Subsidised smuggling','Institutional corruption'],actors:['PDVSA','State actors','El Kooheji intermediaries','Caribbean networks'],loss:1.0,lossLabel:'Variable estimates',typeCode:'sanctions', note:'Own shadow fleet (comparable to Iran\'s). Near-free fuel smuggled to Colombia, Trinidad, Caribbean. PDVSA operates under US sanctions via intermediaries.',       source:'Atlantic Council 2021; GI-TOC; Hermes Kalamos 2025'},
+  360:{name:'Indonesia',    region:'Asia Pacific',     types:['Pipeline tapping','Bunkering','Pipeline explosions'],       actors:['Local groups in Sumatra','Regional networks'],          loss:0.3, lossLabel:'~2,000–3,000 bpd stolen',typeCode:'pipeline', note:'Explosion in South Sumatra (2012) killed at least 8 people. Pertamina closed Tempino-Plaju pipeline. Hundreds of taps in Bayung Lencir district.',            source:'Atlantic Council 2021'},
+  218:{name:'Ecuador',      region:'Latin America',    types:['Smuggling to Colombia','Fuel for illegal fishing'],         actors:['Local networks','Colombia narco-linked'],               loss:0.2, lossLabel:'Low estimates', typeCode:'smuggling',   note:'Stolen gasoline finances illegal fishing in Galapagos (UNESCO zone). Documented nexus with Colombian drug trafficking. Subsidised prices create arbitrage.',   source:'Atlantic Council 2021; GI-TOC'},
+   76:{name:'Brazil',       region:'Latin America',    types:['Pipeline theft','Fuel adulteration'],                       actors:['Local criminal groups','Informal distribution networks'],loss:0.3, lossLabel:'Millions/yr (Petrobras)',typeCode:'pipeline', note:'Petrobras implemented Integrated Pipeline Protection Program after losing 3.4M litres to theft. Adulteration in retail distribution chain, especially northeast.', source:'clickpetroleoegas.com.br; Posmonição Política 2025'}
+};
+
+const OIL_TYPE_LABELS = {
+  pipeline:    'Pipeline Tapping',
+  smuggling:   'Smuggling',
+  sanctions:   'Sanctions Evasion',
+  adulteration:'Adulteration / Fraud'
+};
+
+function oilLossColor(loss) {
+  if (!loss || loss < 0.5) return '#FAC775';
+  if (loss < 1)  return '#EF9F27';
+  if (loss < 5)  return '#BA7517';
+  if (loss < 15) return '#A32D2D';
+  return '#501313';
+}
+
+let oilActiveType = 'all';
+
+function oilGetFill(id) {
+  const d = OIL_DB[id];
+  if (!d) return null;
+  if (oilActiveType !== 'all' && d.typeCode !== oilActiveType) return '#162030';
+  return oilLossColor(d.loss);
+}
+
+function oilBuildTable() {
+  const ids = Object.keys(OIL_DB).map(Number);
+  const filtered = oilActiveType === 'all' ? ids : ids.filter(k => OIL_DB[k].typeCode === oilActiveType);
+  const tbody = document.getElementById('oilTableBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  filtered.sort((a,b) => OIL_DB[b].loss - OIL_DB[a].loss).forEach(id => {
+    const d = OIL_DB[id];
+    const tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
+    tr.innerHTML = `<td style="padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.05);color:#E4E8F0;font-weight:500;">${d.name}</td>
+      <td style="padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.05);color:#8A95A8;">${d.region}</td>
+      <td style="padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.05);color:#C9A84C;font-size:0.65rem;font-family:'IBM Plex Mono',monospace;">${OIL_TYPE_LABELS[d.typeCode]||d.typeCode}</td>
+      <td style="padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.05);color:#EF9F27;font-weight:500;white-space:nowrap;">${d.lossLabel}</td>
+      <td style="padding:7px 10px;border-bottom:0.5px solid rgba(255,255,255,0.05);color:#8A95A8;">${d.actors.slice(0,2).join(', ')}</td>`;
+    tr.addEventListener('mouseover', () => tr.style.background = '#1A2236');
+    tr.addEventListener('mouseout',  () => tr.style.background = '');
+    tr.addEventListener('click', () => oilShowDetail(id));
+    tbody.appendChild(tr);
+  });
+}
+
+function oilShowDetail(id) {
+  const d = OIL_DB[id];
+  if (!d) return;
+  const panel = document.getElementById('oilDetailPanel');
+  if (!panel) return;
+  panel.innerHTML = `
+    <div style="font-weight:600;font-size:0.82rem;color:#E4E8F0;margin-bottom:6px;">${d.name} — Illicit Market Profile</div>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#C9A84C;letter-spacing:0.1em;text-transform:uppercase;">${OIL_TYPE_LABELS[d.typeCode]||d.typeCode}</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#4A5568;margin-bottom:2px;">Region</div><div style="font-size:0.78rem;color:#E4E8F0;">${d.region}</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#4A5568;margin-bottom:2px;">Est. Losses / yr</div><div style="font-size:0.78rem;color:#EF9F27;font-weight:500;">${d.lossLabel}</div></div>
+      <div style="grid-column:span 2;"><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#4A5568;margin-bottom:2px;">Market types</div><div style="font-size:0.78rem;color:#E4E8F0;">${d.types.join(' · ')}</div></div>
+    </div>
+    <p style="font-size:0.78rem;color:#8A95A8;line-height:1.65;margin-top:9px;">${d.note}</p>
+    <div style="margin-top:8px;font-size:0.72rem;color:#8A95A8;"><strong style="color:#E4E8F0;">Key actors:</strong> ${d.actors.map(a=>`<span style="display:inline-block;background:#1A2236;border-radius:10px;padding:2px 8px;margin:2px 2px 0 0;font-size:0.65rem;">${a}</span>`).join('')}</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:#4A5568;margin-top:8px;">Sources: ${d.source}</div>`;
+}
+
+// Render map
+d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
+  const features = topojson.feature(world, world.objects.countries).features;
+  const mapWrap = document.getElementById('oilMapWrap');
+  const tooltip  = document.getElementById('oilTooltip');
+  const svg = d3.select('#oilWorldMap');
+  const projection = d3.geoNaturalEarth1().scale(140).translate([400, 230]);
+  const path = d3.geoPath(projection);
+
+  svg.selectAll('path.oil-country')
+    .data(features)
+    .join('path')
+    .attr('class','oil-country')
+    .attr('d', path)
+    .attr('stroke','rgba(255,255,255,0.07)')
+    .attr('stroke-width', 0.4)
+    .attr('fill', d => oilGetFill(+d.id) || '#1A2236')
+    .attr('opacity', d => OIL_DB[+d.id] ? 1 : 0.5)
+    .style('cursor', d => OIL_DB[+d.id] ? 'pointer' : 'default')
+    .on('mousemove', function(event, d) {
+      const data = OIL_DB[+d.id];
+      if (!data) return;
+      const rect = mapWrap.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      tooltip.style.display = 'block';
+      tooltip.style.left = Math.min(x + 12, rect.width - 252) + 'px';
+      tooltip.style.top  = Math.max(y - 55, 4) + 'px';
+      document.getElementById('oilTtName').textContent = data.name;
+      document.getElementById('oilTtLoss').textContent = data.lossLabel;
+      document.getElementById('oilTtType').textContent = OIL_TYPE_LABELS[data.typeCode] || data.typeCode;
+    })
+    .on('mouseleave', () => { tooltip.style.display = 'none'; })
+    .on('click', (event, d) => { if (OIL_DB[+d.id]) oilShowDetail(+d.id); });
+
+  // Filter buttons
+  document.getElementById('oilFilterRow').addEventListener('click', e => {
+    const btn = e.target.closest('.oil-filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.oil-filter-btn').forEach(b => {
+      b.style.background = 'transparent';
+      b.style.color = '#8A95A8';
+      b.style.borderColor = 'rgba(255,255,255,0.12)';
+    });
+    btn.style.background = 'rgba(255,255,255,0.08)';
+    btn.style.color = '#E4E8F0';
+    btn.style.borderColor = 'rgba(255,255,255,0.2)';
+    oilActiveType = btn.dataset.type;
+    svg.selectAll('path.oil-country')
+      .attr('fill', d => oilGetFill(+d.id) || '#1A2236')
+      .attr('opacity', d => {
+        if (!OIL_DB[+d.id]) return 0.5;
+        if (oilActiveType !== 'all' && OIL_DB[+d.id].typeCode !== oilActiveType) return 0.2;
+        return 1;
+      });
+    oilBuildTable();
+  });
+
+  // Tab switching
+  document.querySelectorAll('.oil-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.oil-tab').forEach(t => {
+        t.style.color = '#8A95A8';
+        t.style.borderBottomColor = 'transparent';
+      });
+      tab.style.color = '#E4E8F0';
+      tab.style.borderBottomColor = '#C9A84C';
+      document.getElementById('oilTabTable').style.display    = tab.dataset.tab === 'oilTabTable'    ? 'block' : 'none';
+      document.getElementById('oilTabTypology').style.display = tab.dataset.tab === 'oilTabTypology' ? 'block' : 'none';
+    });
+  });
+
+  // Set first tab active style
+  document.querySelector('.oil-tab.active').style.color = '#E4E8F0';
+  document.querySelector('.oil-tab.active').style.borderBottomColor = '#C9A84C';
+});
+
+// Build initial table
+document.addEventListener('DOMContentLoaded', oilBuildTable);
+oilBuildTable(); // also call immediately in case DOMContentLoaded already fired
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+Chart.defaults.color='#8A95A8';Chart.defaults.font.family="'IBM Plex Mono',monospace";Chart.defaults.font.size=10;
+// Oil typology chart
+new Chart(document.getElementById('oilTypology'),{type:'bar',data:{labels:['Type I · State-Captured','Type II · Hybrid','Type III · Criminal','Type IV · Conflict','Type V · Arbitrage'],datasets:[{label:'Countries',data:[3,4,4,2,2],backgroundColor:['#C0392B','#E67E22','#C9A84C','#4A90D9','#1A9E8F'],borderColor:'transparent',borderRadius:3}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.parsed.x} countries`}}},scales:{x:{max:5,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568',stepSize:1}},y:{grid:{display:false},ticks:{color:'#8A95A8',font:{size:9}}}}}});
+// Risk charts
+new Chart(document.getElementById('riskGlobal'),{type:'doughnut',data:{labels:['No Risk','Low','Moderate','High','Very High'],datasets:[{data:[2285,7984,4769,800,85],backgroundColor:['#1A9E8F','#4A90D9','#C9A84C','#E67E22','#C0392B'],borderColor:'#0E1420',borderWidth:3,hoverOffset:6}]},options:{cutout:'62%',plugins:{legend:{position:'right',labels:{boxWidth:10,padding:12,color:'#8A95A8'}},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.parsed.toLocaleString()} (${(ctx.parsed/15923*100).toFixed(1)}%)`}}}}});
+new Chart(document.getElementById('riskDimension'),{type:'bar',data:{labels:['Administrative Risk','Electoral Risk','Both Simultaneously'],datasets:[{label:'Centers',data:[6125,10158,2643],backgroundColor:['#4A90D9','#C9A84C','#C0392B'],borderColor:'transparent',borderRadius:2}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568'}},y:{grid:{display:false},ticks:{color:'#8A95A8'}}}}});
+new Chart(document.getElementById('riskIndicator'),{type:'bar',data:{labels:['Abstention','Small size','Govt. dominance','New centers','Voter changes','Opp. dominance'],datasets:[{label:'% centers',data:[54.1,34.0,14.1,11.0,7.1,6.9],backgroundColor:ctx=>ctx.dataIndex===0?'#C0392B':ctx.dataIndex<2?'#E67E22':'#C9A84C',borderColor:'transparent',borderRadius:2}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{max:60,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568',callback:v=>v+'%'}},y:{grid:{display:false},ticks:{color:'#8A95A8'}}}}});
+new Chart(document.getElementById('riskVote'),{type:'bar',data:{labels:['No Risk','Low','Moderate','High','Very High'],datasets:[{label:'Govt. vote %',data:[38.2,42.1,47.3,58.6,65.8],backgroundColor:'#C9A84C',borderColor:'transparent',borderRadius:2},{label:'National avg (45.4%)',type:'line',data:[45.4,45.4,45.4,45.4,45.4],borderColor:'#C0392B',borderDash:[5,3],borderWidth:1.5,pointRadius:0,fill:false}]},options:{plugins:{legend:{labels:{color:'#8A95A8',boxWidth:10}}},scales:{y:{min:30,max:70,grid:{color:'rgba(255,255,255,0.04)'},ticks:{callback:v=>v+'%',color:'#4A5568'}},x:{grid:{display:false},ticks:{color:'#8A95A8'}}}}});
+
+// BTI charts
+new Chart(document.getElementById('btiDonut'),{type:'doughnut',data:{labels:['Stable Autocracies','New Autocracies','Unstable Regimes','New Democracies','Stable Democracies'],datasets:[{data:[50,13,21,3,50],backgroundColor:['#C0392B','#E67E22','#C9A84C','#4A90D9','#1A9E8F'],borderColor:'#080C14',borderWidth:3,hoverOffset:6}]},options:{cutout:'60%',plugins:{legend:{position:'right',labels:{boxWidth:10,padding:10,color:'#8A95A8',font:{size:9}}},tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.parsed} countries (${(ctx.parsed/137*100).toFixed(1)}%)`}}}}});
+new Chart(document.getElementById('btiTrend'),{type:'line',data:{labels:['2006','2008','2010','2012','2014','2016','2018','2020','2022','2024','2026'],datasets:[{label:'Autocracies',data:[33.9,34.3,34.3,34.3,35.0,35.0,36.5,36.5,36.5,36.5,36.5],borderColor:'#C0392B',backgroundColor:'rgba(192,57,43,0.08)',fill:true,tension:0.3,pointRadius:2,borderWidth:2},{label:'Democracies',data:[39.0,38.7,38.7,38.7,38.7,38.7,38.7,38.7,38.7,38.7,38.7],borderColor:'#1A9E8F',backgroundColor:'rgba(26,158,143,0.08)',fill:true,tension:0.3,pointRadius:2,borderWidth:2},{label:'Unstable',data:[16.9,16.8,16.8,16.8,16.1,16.1,14.6,14.6,14.6,14.6,15.3],borderColor:'#C9A84C',backgroundColor:'transparent',tension:0.3,pointRadius:2,borderWidth:1.5,borderDash:[4,2]}]},options:{plugins:{legend:{labels:{color:'#8A95A8',boxWidth:10,font:{size:9}}}},scales:{y:{min:10,max:45,grid:{color:'rgba(255,255,255,0.04)'},ticks:{callback:v=>v+'%',color:'#4A5568'}},x:{grid:{display:false},ticks:{color:'#8A95A8'}}}}});
+new Chart(document.getElementById('btiStability'),{type:'bar',data:{labels:['Stable\nAutocracies','New\nAutocracies','Unstable\nRegimes','New\nDemocracies','Stable\nDemocracies'],datasets:[{label:'Stable (2006→2026)',data:[50,0,0,0,50],backgroundColor:'rgba(26,158,143,0.7)',borderRadius:2},{label:'Transitioned',data:[0,13,21,3,0],backgroundColor:'rgba(201,168,76,0.7)',borderRadius:2}]},options:{plugins:{legend:{labels:{color:'#8A95A8',boxWidth:10}}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:'#8A95A8'}},y:{stacked:true,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568'}}}}});
+// Scenario charts
+new Chart(document.getElementById('cohesionChart'),{type:'line',data:{labels:['2013','2015','2017','2019','2021','2023','2024','2025'],datasets:[{label:'Government cohesion',data:[85,72,58,62,65,70,68,66],borderColor:'#C0392B',backgroundColor:'rgba(192,57,43,0.08)',fill:true,tension:0.4,pointRadius:3,borderWidth:2},{label:'Opposition cohesion',data:[60,75,45,38,52,68,72,30],borderColor:'#4A90D9',backgroundColor:'rgba(74,144,217,0.08)',fill:true,tension:0.4,pointRadius:3,borderWidth:2}]},options:{plugins:{legend:{labels:{color:'#8A95A8',boxWidth:10,font:{size:9}}}},scales:{y:{min:0,max:100,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568'}},x:{grid:{display:false},ticks:{color:'#8A95A8'}}}}});
+new Chart(document.getElementById('forceMatrix'),{type:'bar',data:{labels:['Military\nStrength','Willingness\nto Use','Internal\nLegitimacy'],datasets:[{label:'Deterrence (A)',data:[60,45,30],backgroundColor:'rgba(74,144,217,0.7)',borderRadius:2},{label:'Surrender (B)',data:[75,75,55],backgroundColor:'rgba(201,168,76,0.7)',borderRadius:2},{label:'Confrontation (C)',data:[90,90,85],backgroundColor:'rgba(192,57,43,0.7)',borderRadius:2}]},options:{plugins:{legend:{labels:{color:'#8A95A8',boxWidth:10,font:{size:9}}}},scales:{x:{grid:{display:false},ticks:{color:'#8A95A8'}},y:{max:100,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568',callback:v=>v+'%'}}}}});
+function switchTab(t){document.getElementById('panel-esc').style.display=t==='esc'?'block':'none';document.getElementById('panel-risk').style.display=t==='risk'?'block':'none';document.getElementById('tab-esc').style.background=t==='esc'?'var(--surface)':'var(--bg2)';document.getElementById('tab-risk').style.background=t==='risk'?'var(--surface)':'var(--bg2)';document.getElementById('tab-esc').style.color=t==='esc'?'var(--gold)':'var(--text-mid)';document.getElementById('tab-risk').style.color=t==='risk'?'var(--gold)':'var(--text-mid)';}
+</script>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="section-label" data-i18n="proj_label">Selected Projects</div>
+  <h2 data-i18n="proj_h2">Analytics Work</h2>
+  <div class="projects-grid">
+
+    <!-- PROJECT 1: Global Oil Markets -->
+    <div class="project-card reveal">
+      <div class="project-tag">Geospatial Intelligence · Global · 2025</div>
+      <div class="project-title" data-i18n="p1_title">Global Mapping of Illicit Petroleum Markets</div>
+      <div class="project-desc" data-i18n="p1_desc">Interactive D3.js/TopoJSON world map for a 15-country typology analysis of illicit fuel and oil markets. The project develops an original five-category market typology, presented through a choropleth visualization with filterable data tables. Designed to translate a complex qualitative framework into a data-driven geospatial intelligence tool accessible to policy and research audiences.</div>
+      <div class="project-meta">
+        <span class="meta-tag">D3.js</span><span class="meta-tag">TopoJSON</span>
+        <span class="meta-tag">Choropleth</span><span class="meta-tag">Typology</span>
+        <span class="meta-tag">15 Countries</span><span class="meta-tag">Briceño 2025</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: Electoral Risk Map -->
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-tag">Electoral Risk Intelligence · Venezuela · 2024</div>
+      <div class="project-title" data-i18n="p2_title">Electoral Risk Map — Venezuelan Presidential Election 2024</div>
+      <div class="project-desc" data-i18n="p2_desc">Quantitative electoral risk index covering all 15,923 voting centers ahead of the July 2024 presidential election. Six binary indicators across two dimensions — administrative and electoral risk — produce a composite score from 0 to 4. Key finding: 85.6% of centers were at risk, affecting 18.5M+ voters. Published by Observa Democracia.</div>
+      <div class="project-meta">
+        <span class="meta-tag">Risk Index</span><span class="meta-tag">15,923 centers</span>
+        <span class="meta-tag">21M+ voters</span><span class="meta-tag">Spatial Analysis</span>
+        <span class="meta-tag">Binary Indicators</span><span class="meta-tag">Venezuela</span>
+      </div>
+      <a class="proj-link" href="https://observademocracia.org/mapeo-de-riesgos-electorales-venezuela-elecciones-presidenciales-2024/" target="_blank" data-i18n="view_report">→ View published report at Observa Democracia</a>
+    </div>
+
+    <!-- PROJECT 3: Electoral Infrastructure -->
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-tag">Electoral Infrastructure · Venezuela · 2024</div>
+      <div class="project-title" data-i18n="p3_title">Electoral Infrastructure &amp; Voter Distribution — Venezuela 2015–2024</div>
+      <div class="project-desc" data-i18n="p3_desc">Comparative analysis of Venezuela's electoral infrastructure across three elections (2015, 2021, 2024). Key finding: the Electoral Register grew by 1.88 million voters despite a massive emigration crisis — a structural anomaly with direct implications for electoral manipulation. Documents the July 28, 2024 result: the largest opposition margin (36.6 points) in Venezuelan democratic history.</div>
+      <div class="project-meta">
+        <span class="meta-tag">Electoral Infrastructure</span><span class="meta-tag">Migration &amp; Voter Data</span>
+        <span class="meta-tag">3 Elections</span><span class="meta-tag">335 Municipalities</span>
+        <span class="meta-tag">Longitudinal</span><span class="meta-tag">Venezuela</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 4: BTI Dashboard -->
+    <div class="project-card reveal reveal-delay-3">
+      <div class="project-tag">Comparative Politics · Global · Live Dashboard · 2026</div>
+      <div class="project-title" data-i18n="p4_title">BTI 2026 Dashboard — Political Regime Transformation across 137 Countries</div>
+      <div class="project-desc" data-i18n="p4_desc">Interactive dashboard covering 20 years of regime data (BTI 2006–2026) across 137 countries and 1,507 observations. Combines descriptive statistics, ANOVA, and Random Forest classification (71.5% accuracy). Key finding: the world is polarized into two equal blocs — 50 stable autocracies vs. 50 stable democracies — with zero crossings over 20 years.</div>
+      <div class="project-meta">
+        <span class="meta-tag">BTI Data</span><span class="meta-tag">137 Countries</span>
+        <span class="meta-tag">Random Forest</span><span class="meta-tag">ANOVA</span>
+        <span class="meta-tag">20-Year Panel</span><span class="meta-tag">Live Dashboard</span>
+      </div>
+      <a class="proj-link" href="https://www.posmonicionpolitica.com/2026/04/dashboard-bti-2026-challenges-and.html" target="_blank" data-i18n="view_dashboard">→ Explore live dashboard at Posmonición Política</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PUBLICATIONS ── -->
+<section id="publications">
+  <div class="section-label" data-i18n="pub_label">Publications</div>
+  <h2 data-i18n="pub_h2">Selected Research Output</h2>
+  <div class="pub-list">
+    <div class="pub-item reveal">
+      <div class="pub-year">2026</div>
+      <div><div class="pub-title">BTI 2026 Dashboard: Political Regime Transformation across 137 Countries <span class="pub-badge">Live Dashboard</span></div><div class="pub-source">Briceño, H. Posmonición Política. 137 countries · 1,507 observations · Random Forest + ANOVA. <a href="https://www.posmonicionpolitica.com/2026/04/dashboard-bti-2026-challenges-and.html" target="_blank" style="color:var(--gold);text-decoration:none;">→ View</a></div></div>
+    </div>
+    <div class="pub-item reveal reveal-delay-1">
+      <div class="pub-year">2024</div>
+      <div><div class="pub-title">Mapeo de Riesgos Electorales — Venezuela, Elecciones Presidenciales 2024 <span class="pub-badge">Research Report</span></div><div class="pub-source">Briceño, H. Observa Democracia. 15,923 voting centers · 21M+ voters. <a href="https://observademocracia.org/mapeo-de-riesgos-electorales-venezuela-elecciones-presidenciales-2024/" target="_blank" style="color:var(--gold);text-decoration:none;">→ View</a></div></div>
+    </div>
+    <div class="pub-divider"><span data-i18n="peer_reviewed">Peer-reviewed Books &amp; Articles</span></div>
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div><div class="pub-title">Multiple Crises of the Venezuelan Party System <span class="pub-badge">Springer</span></div><div class="pub-source">In Latouche, Muno &amp; Gericke (Eds.), Venezuela – Dimensions of the Crisis. Springer.</div></div>
+    </div>
+    <div class="pub-item reveal reveal-delay-1">
+      <div class="pub-year">2023</div>
+      <div><div class="pub-title">Autocratization and Public Administration in Venezuela <span class="pub-badge">APJPA</span></div><div class="pub-source">Muno, W. &amp; Briceño, H. Asia Pacific Journal of Public Administration, Vol. 45, Issue 1.</div></div>
+    </div>
+    <div class="pub-item reveal reveal-delay-2">
+      <div class="pub-year">2021</div>
+      <div><div class="pub-title">Venezuela: Sidelining Public Administration Under a Revolutionary-Populist Regime <span class="pub-badge">Cambridge UP</span></div><div class="pub-source">In Democratic Backsliding and Public Administration. Cambridge University Press. doi:10.1017/9781009023504.010</div></div>
+    </div>
+    <div class="pub-item reveal reveal-delay-3">
+      <div class="pub-year">2018</div>
+      <div><div class="pub-title">La diversidad ideológica en la formación de las políticas públicas durante el chavismo</div><div class="pub-source">In Spiritto, F. (Ed.), Decisiones de Gobierno en Venezuela. Universidad Católica Andrés Bello.</div></div>
+    </div>
+    <div class="pub-item reveal">
+      <div class="pub-year">2015</div>
+      <div><div class="pub-title">Avances y retrocesos de la democracia participativa en Venezuela</div><div class="pub-source">Briceño, H. &amp; Maingon, T. Friedrich Ebert Stiftung.</div></div>
+    </div>
+  </div>
+  <div class="pub-more reveal"><a href="https://posmonicionpolitica.blogspot.com/p/publicaciones.html" target="_blank" class="btn-ghost" data-i18n="pub_more">View Full Publication List →</a></div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="justify-content:center;" data-i18n="contact_label">Contact</div>
+    <h2 data-i18n="contact_h2">Let's Work Together</h2>
+    <p data-i18n="contact_p">Available for research consulting, strategic analytics projects, and data intelligence engagements — remotely or on-site in Germany and Europe.</p>
+
+    <form class="contact-form" action="https://formspree.io/f/xpqbdkwe" method="POST" id="contactForm">
+      <div class="form-group">
+        <label for="name" data-i18n="form_name">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Your name"/>
+      </div>
+      <div class="form-group">
+        <label for="email" data-i18n="form_email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label for="org" data-i18n="form_org">Organization (optional)</label>
+        <input type="text" id="org" name="organization" placeholder="Your organization"/>
+      </div>
+      <div class="form-group">
+        <label for="message" data-i18n="form_msg">Message</label>
+        <textarea id="message" name="message" required placeholder="Describe your project or inquiry..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary form-submit" data-i18n="form_send">Send Message</button>
+      <div class="form-success" id="formSuccess" data-i18n="form_ok">✓ Message sent. I will get back to you shortly.</div>
+    </form>
+
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/hector-brice%C3%B1o-phd-76ab19b8/" class="contact-link" target="_blank">↗ &nbsp;LinkedIn</a>
+      <a href="http://hectorbriceno.com/" class="contact-link" target="_blank">⊕ &nbsp;hectorbriceno.com</a>
+      <a href="https://www.posmonicionpolitica.com" class="contact-link" target="_blank">◉ &nbsp;Posmonición Política</a>
+      <a href="https://twitter.com/hectorbriceno" class="contact-link" target="_blank">✕ &nbsp;Twitter / X</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span>© 2025 Héctor Briceño, PhD · Rostock, Germany</span>
+  <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+    <a href="https://www.linkedin.com/in/hector-brice%C3%B1o-phd-76ab19b8/" target="_blank" style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-dim)'">LinkedIn</a>
+    <a href="https://www.posmonicionpolitica.com" target="_blank" style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-dim)'">Posmonición Política</a>
+    <a href="https://twitter.com/hectorbriceno" target="_blank" style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-dim)'">Twitter / X</a>
+    <a href="#contact" class="btn-primary" style="font-size:0.62rem;padding:0.4rem 0.9rem;" data-i18n="hero_cta2">Get in Touch</a>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script>
+// ── i18n ───────────────────────────────────────────────────
+// IP-based language auto-detection
+(async function detectLang() {
+  const saved = sessionStorage.getItem('lang');
+  if (saved) { setLang(saved); return; }
+  try {
+    const r = await fetch('https://ip-api.com/json/?fields=countryCode', {cache:'no-store'});
+    const d = await r.json();
+    const cc = d.countryCode || '';
+    const de = ['DE','AT','CH'].includes(cc);
+    const es = ['ES','MX','AR','CO','VE','PE','CL','EC','BO','PY','UY','CU','DO','GT','HN','SV','NI','CR','PA'].includes(cc);
+    setLang(de ? 'de' : es ? 'es' : 'en');
+  } catch { setLang('en'); }
+})();
+const T = {
+  en:{
+    nav_about:'About',nav_expertise:'Expertise',nav_research:'Research',nav_projects:'Projects',nav_pub:'Publications',nav_contact:'Contact',
+    hero_tag:'Data Strategy &amp; Research Intelligence',
+    hero_sub:'Quantitative Research &nbsp;·&nbsp; Strategic Analytics &nbsp;·&nbsp; PhD in Political Science<br>Translating complex data into actionable intelligence for organizations<br>operating in high-uncertainty environments.',
+    hero_cta1:'View Projects ↓',hero_cta2:'Get in Touch',
+    stat_data:'Data Records Processed',stat1:'Years of Experience',stat2:'Voting Centers Analysed',stat3:'Countries Politically Analysed',stat4:'Peer-reviewed Publications',
+    about_label:'About',about_h2:'Data Strategist<br>&amp; Political Scientist',
+    about_p1:'I am a <strong>data strategist and applied researcher</strong> based in Rostock, Germany, with a PhD in Political Science from the University of Rostock and more than fifteen years of experience designing and executing complex research projects across Europe and Latin America.',
+    about_p2:'My work sits at the intersection of <strong>quantitative social science, strategic intelligence, and data visualization</strong>. I build the analytical pipelines, statistical models, and interactive dashboards that turn raw political and social data into clear, decision-ready intelligence.',
+    about_p3:'I have worked with diplomatic missions, international organizations, research institutions, and multilateral organizations on political risk and economic dynamics. I also founded <strong>CENSUM</strong>, a data and political research consultancy operating since 2014.',
+    about_p4:'I have contributed political analysis and opinion pieces to international media in Germany, the Netherlands, Spain, Venezuela, Ecuador, and Brazil, including <strong>DW</strong> (Germany), <strong>RNW</strong> (Netherlands), <strong>La Razón</strong> &amp; <strong>Agenda Pública</strong> (Spain), <strong>Efecto Cocuyo</strong> (Venezuela), <strong>El Universo</strong> (Ecuador), and many others.',
+    tech_stack:'Technical Stack',media_label:'Media &amp; Press',based_label:'Based in',remote_label:'Open to remote &amp; on-site engagement',
+    exp_label:'Expertise',exp_h2:'What I Do',exp_intro:'Six core capabilities deployed — individually or in combination — to solve complex research, strategy, and intelligence challenges.',
+    exp1_title:'Statistical Modelling',exp1_desc:'Regression analysis, discriminant analysis, and clustering applied to large datasets — from model design to interpretation, integrating AI-assisted workflows for accelerated pattern detection.',
+    exp2_title:'Political Risk',exp2_desc:'Deep expertise in electoral risk mapping, party system dynamics, democratic transitions, and regime change across Latin America and 137 countries globally.',
+    exp3_title:'Strategic Intelligence',exp3_desc:'Translating multi-source data (quantitative models, field intelligence, open sources) into concise, actionable briefings for senior decision-makers.',
+    exp4_title:'Data Visualization',exp4_desc:'Interactive dashboards in Power BI, geospatial electoral maps, choropleth visualizations, and exploratory data analysis — enhanced with AI tools — that make complex findings immediately legible.',
+    exp5_title:'Project Management',exp5_desc:'Design, coordination, and delivery of complex research projects with cross-functional stakeholders, from scope definition to final deliverable.',
+    exp6_title:'Research &amp; Survey Design',exp6_desc:'End-to-end research architecture: hypothesis definition, instrument design, data collection strategy, and robust AI-enhanced methodologies.',
+    
+    research_label:'Research &amp; Analysis',research_h2:'Interactive Dashboards',research_intro:'Selected research outputs presented as live, interactive analyses. Data, methodology, and visualizations embedded directly.',
+    risk_s1:'Centers at Risk',risk_s2:'Voting Centers',risk_s3:'Voters Affected',risk_s4:'Risk Indicators',
+    method_label:'Methodology',risk_method:'Six binary indicators across two dimensions: Administrative Risk (new centers, size ≤500 voters, voter variation &gt;±15%) and Electoral Risk (abstention &gt;50% or &lt;11.4%, opposition dominance &gt;75%, government dominance &gt;75%). Composite Global Risk Index: 0–4.',
+    bti_s1:'Countries',bti_s2:'Observations',bti_s3:'Years of Data',bti_s4:'RF Accuracy',bti_s5:'Pole Crossings',
+    key_finding:'Key Finding',bti_finding:'"The world is polarized into two nearly equal blocs — <em>50 stable autocracies</em> and <em>50 stable democracies</em> — with zero crossings between poles over 20 years."',
+    bti_finding2:'Autocracy share grew from 33.9% (2006) to 36.5% (2026). The sharpest contraction is in unstable regimes — the middle ground is shrinking as countries polarize toward either pole.',
+    bti_method:'Original five-category regime typology based on BTI Democracy Status trajectories across 11 biennial waves. Analysis: descriptive statistics, one-way ANOVA, and Random Forest classification (71.5% accuracy).',
+    tab1:'① Sociopolitical Scenarios 2025',tab2:'② Risk Venezuela 2025–2026',
+    matrix_label:'Scenario Matrix — Two Key Variables',scen_desc_label:'Scenario Descriptions',
+    s0_desc:'Chavismo reconnects with its base through economic benefits, revolutionary ideology, and charismatic leadership. Near-zero probability.',
+    s1_desc:'Increased internal and external repression. Chavismo divided; radical factions gain power. Opposition fragmented. Unsustainable crisis scenario.',
+    s2_desc:'Chavismo builds economic bubble, calls mega-elections, passes restrictive laws. Maximum opposition division. Most stable scenario for the regime.',
+    s3_desc:'Opposition stays unified. Normalization narrative fails. A frozen conflict — war of attrition that can evolve toward S4/S5 or S0/S2.',
+    s4_desc:'Opposition imposes legitimacy on moderate chavista factions. Negotiated democratic reinstitutionalization path. Requires international guarantees.',
+    s5_desc:'Acute internal chavista conflict. Weakened factions cooperate with opposition for short-term democratic transition.',
+    source_label:'Source',
+    scA_tag:'Scenario A · Short-term',scA_title:'Deterrence',scA_desc:'US military presence causes internal fractures in the government-military-police alliance. Three-actor negotiation: chavismo, USA, and opposition (MCM/EGU).',scA_out:'→ Negotiated civilian-led transition (forced by military)',
+    scB_tag:'Scenario B · Mid-term',scB_title:'Surrender',scB_desc:'Low-intensity US military intervention. Specific missions in Venezuelan territory achieve FANB surrender. Military high command negotiates transition independently.',scB_out:'→ Military-led transition; political actors secondary',
+    scC_tag:'Scenario C · Long-term',scC_title:'Confrontation',scC_desc:'Extensive war across Venezuelan territory. Active US intervention + FANB internal split. Most violent, most uncertain outcome.',scC_out:'→ Unpredictable — military fully displaces politics',
+    alt_tag:'Alternative Scenario · If force variable dissolves',alt_title:'Authoritarian Consolidation 2026',alt_desc:'Without US military pressure, chavismo advances institutional reforms, rebuilds regional alliances (Colombia, Brazil), exploits maximum opposition fragmentation.',
+    proj_label:'Selected Projects',proj_h2:'Analytics Work',
+    p1_title:'Global Mapping of Illicit Petroleum Markets',p1_desc:'Interactive D3.js/TopoJSON world map for a 15-country typology analysis of illicit fuel and oil markets. Original five-category market typology presented through choropleth visualization with filterable data tables. Designed to translate a complex qualitative framework into a geospatial intelligence tool for policy and research audiences.',
+    p2_title:'Electoral Risk Map — Venezuelan Presidential Election 2024',p2_desc:'Quantitative electoral risk index covering all 15,923 voting centers ahead of the July 2024 presidential election. Six binary indicators across two dimensions produce a composite score from 0 to 4. Key finding: 85.6% of centers were at risk, affecting 18.5M+ voters. Published by Observa Democracia.',
+    p3_title:'Electoral Infrastructure &amp; Voter Distribution — Venezuela 2015–2024',p3_desc:'Comparative analysis of Venezuela\'s electoral infrastructure across three elections (2015, 2021, 2024). Key finding: the Electoral Register grew by 1.88M voters despite a massive emigration crisis — a structural anomaly with direct implications for electoral manipulation.',
+    p4_title:'BTI 2026 Dashboard — Political Regime Transformation across 137 Countries',p4_desc:'Interactive dashboard covering 20 years of regime data across 137 countries and 1,507 observations. Combines descriptive statistics, ANOVA, and Random Forest classification (71.5% accuracy). Key finding: zero crossings between autocracy and democracy poles over 20 years.',
+    view_report:'→ View published report at Observa Democracia',view_dashboard:'→ Explore live dashboard at Posmonición Política',
+    pub_label:'Publications',pub_h2:'Selected Research Output',peer_reviewed:'Peer-reviewed Books &amp; Articles',pub_more:'View Full Publication List →',
+    contact_label:'Contact',contact_h2:"Let's Work Together",contact_p:'Available for research consulting, strategic analytics projects, and data intelligence engagements — remotely or on-site in Germany and Europe.',
+    form_name:'Name',form_email:'Email',form_org:'Organization (optional)',form_msg:'Message',form_send:'Send Message',form_ok:'✓ Message sent. I will get back to you shortly.',
+    oil_filter_all:'All',oil_filter_pipeline:'Pipeline tapping',oil_filter_smuggling:'Smuggling',oil_filter_sanctions:'Sanctions evasion',oil_filter_adulteration:'Adulteration',oil_tab_data:'Database',oil_tab_typology:'Typology',oil_col_country:'Country',oil_col_region:'Region',oil_col_type:'Type',oil_col_loss:'Est. Losses/yr',oil_col_actors:'Key Actors',oil_s1:'Countries Mapped',oil_s2:'Market Typologies',oil_s3:'Continents',oil_s4:'Published',oil_method:'Original five-category typology for illicit petroleum markets developed by Dr. Briceño (2025). Qualitative comparative analysis with geospatial visualization via D3.js/TopoJSON. 15 countries across 4 continents.',oil_chart_label:'Market Type Distribution · 15 Countries',oil_t1_tag:'Type I · State-Captured',oil_t1_title:'Institutional Capture',oil_t1_desc:'State apparatus directly controls illicit petroleum flows. Regime survival depends on resource rents extracted outside formal channels.',oil_t2_tag:'Type II · Hybrid',oil_t2_title:'Hybrid Control',oil_t2_desc:'Formal and informal actors coexist in a fragile equilibrium. Illicit markets operate in spaces left by governance gaps.',oil_t3_tag:'Type III · Criminal Networks',oil_t3_title:'Criminal Entrepreneurship',oil_t3_desc:'Organized crime drives market structure. Markets are highly adaptive and transnational.',oil_t4_tag:'Type IV · Conflict-Driven',oil_t4_title:'War Economy',oil_t4_desc:'Armed conflict is the structural driver. Petroleum revenues finance armed groups; control over fields is a war objective.',oil_t5_tag:'Type V · Subsidy Arbitrage',oil_t5_title:'Arbitrage Markets',oil_t5_desc:'Price differentials created by fuel subsidies generate systematic arbitrage. Smuggling is socially normalized.',
+    footer_link:'hectorbriceno.com'
+  },
+  es:{
+    nav_about:'Sobre mí',nav_expertise:'Expertise',nav_research:'Investigación',nav_projects:'Proyectos',nav_pub:'Publicaciones',nav_contact:'Contacto',
+    hero_tag:'Estrategia de Datos &amp; Inteligencia Aplicada',
+    hero_sub:'Investigación Cuantitativa &nbsp;·&nbsp; Análisis Estratégico &nbsp;·&nbsp; PhD en Ciencia Política<br>Convirtiendo datos complejos en inteligencia accionable para organizaciones<br>que operan en entornos de alta incertidumbre.',
+    hero_cta1:'Ver Proyectos ↓',hero_cta2:'Contactar',
+    stat_data:'Registros de Datos Procesados',stat1:'Años de Experiencia',stat2:'Centros Electorales Analizados',stat3:'Países Analizados Políticamente',stat4:'Publicaciones Arbitradas',
+    about_label:'Sobre mí',about_h2:'Estratega de Datos<br>&amp; Politólogo',
+    about_p1:'Soy un <strong>estratega de datos e investigador aplicado</strong> con sede en Rostock, Alemania. PhD en Ciencia Política por la Universidad de Rostock y más de quince años de experiencia diseñando y ejecutando proyectos de investigación complejos en Europa y América Latina.',
+    about_p2:'Mi trabajo se sitúa en la intersección de las <strong>ciencias sociales cuantitativas, la inteligencia estratégica y la visualización de datos</strong>. Construyo pipelines analíticos, modelos estadísticos y dashboards interactivos que convierten datos políticos y sociales en inteligencia lista para la toma de decisiones.',
+    about_p3:'He trabajado con misiones diplomáticas, organizaciones internacionales, instituciones de investigación y organismos multilaterales en análisis de riesgo político y dinámicas económicas. También fundé <strong>CENSUM</strong>, una consultora de datos e investigación política activa desde 2014.',
+    about_p4:'He colaborado con análisis político y artículos de opinión en medios internacionales en Alemania, Países Bajos, España, Venezuela, Ecuador y Brasil, incluyendo <strong>DW</strong> (Alemania), <strong>RNW</strong> (Países Bajos), <strong>La Razón</strong> y <strong>Agenda Pública</strong> (España), <strong>Efecto Cocuyo</strong> (Venezuela), <strong>El Universo</strong> (Ecuador), y muchos otros.',
+    tech_stack:'Herramientas Técnicas',media_label:'Medios &amp; Prensa',based_label:'Ubicación',remote_label:'Disponible de forma remota y presencial',
+    exp_label:'Expertise',exp_h2:'Qué Hago',exp_intro:'Seis competencias centrales que aplico — de forma individual o combinada — para resolver desafíos complejos de investigación, estrategia e inteligencia.',
+    exp1_title:'Modelado Estadístico',exp1_desc:'Análisis de regresión, análisis discriminante y clustering sobre grandes conjuntos de datos — integrando flujos de trabajo asistidos por IA para la detección acelerada de patrones.',
+    exp2_title:'Riesgo Político',exp2_desc:'Expertise profundo en mapeo de riesgo electoral, dinámicas de sistemas de partidos, transiciones democráticas y cambio de régimen en América Latina y 137 países.',
+    exp3_title:'Inteligencia Estratégica',exp3_desc:'Traducir datos de múltiples fuentes (modelos cuantitativos, inteligencia de campo, fuentes abiertas) en briefings concisos y accionables para decisores de alto nivel.',
+    exp4_title:'Visualización de Datos',exp4_desc:'Dashboards interactivos en Power BI, mapas electorales geoespaciales y visualizaciones de coropletas — potenciadas con herramientas de IA — que hacen los hallazgos inmediatamente legibles.',
+    exp5_title:'Gestión de Proyectos',exp5_desc:'Diseño, coordinación y entrega de proyectos de investigación complejos con equipos multidisciplinarios, desde la definición del alcance hasta el entregable final.',
+    exp6_title:'Diseño de Investigación &amp; Encuestas',exp6_desc:'Arquitectura de investigación end-to-end: definición de hipótesis, diseño de instrumentos, estrategia de recolección de datos y metodologías robustas potenciadas con IA.',
+    
+    research_label:'Investigación &amp; Análisis',research_h2:'Dashboards Interactivos',research_intro:'Resultados de investigación seleccionados presentados como análisis en vivo. Datos, metodología y visualizaciones integrados directamente.',
+    risk_s1:'Centros en Riesgo',risk_s2:'Centros de Votación',risk_s3:'Votantes Afectados',risk_s4:'Indicadores de Riesgo',
+    method_label:'Metodología',risk_method:'Seis indicadores binarios en dos dimensiones: Riesgo Administrativo (nuevos centros, tamaño ≤500 electores, variación de electores &gt;±15%) y Riesgo Electoral (abstención &gt;50% o &lt;11.4%, dominancia opositora &gt;75%, dominancia gubernamental &gt;75%). Índice de Riesgo Global Compuesto: 0–4.',
+    bti_s1:'Países',bti_s2:'Observaciones',bti_s3:'Años de Datos',bti_s4:'Precisión RF',bti_s5:'Cruces entre Polos',
+    key_finding:'Hallazgo Principal',bti_finding:'"El mundo está polarizado en dos bloques casi iguales — <em>50 autocracias estables</em> y <em>50 democracias estables</em> — con cero cruces entre polos en 20 años."',
+    bti_finding2:'La proporción de autocracias creció de 33.9% (2006) a 36.5% (2026). La contracción más pronunciada se observa en regímenes inestables — el terreno intermedio se reduce a medida que los países se polarizan hacia uno u otro polo.',
+    bti_method:'Tipología original de cinco categorías de régimen basada en trayectorias del BTI Democracy Status en 11 olas bienales. Análisis: estadística descriptiva, ANOVA unifactorial y clasificación Random Forest (71.5% de precisión).',
+    tab1:'① Escenarios Sociopolíticos 2025',tab2:'② Risk Venezuela 2025–2026',
+    matrix_label:'Mapa de Escenarios — Dos Variables Clave',scen_desc_label:'Descripción de Escenarios',
+    s0_desc:'El chavismo reconecta con sus bases a través de beneficios económicos, reconstrucción ideológica y liderazgo carismático. Probabilidad cercana a cero.',
+    s1_desc:'Aumento de la represión interna y externa. Chavismo dividido; facciones radicales ganan poder. Oposición fragmentada. Escenario de crisis insostenible.',
+    s2_desc:'El chavismo construye burbuja económica, convoca mega-elecciones y aprueba leyes restrictivas. Máxima división opositora. Escenario más estable para el régimen.',
+    s3_desc:'La oposición permanece unida. El discurso de normalización falla. Conflicto congelado — guerra de desgaste que puede evolucionar hacia S4/S5 o S0/S2.',
+    s4_desc:'La oposición impone su legitimidad sobre facciones moderadas del chavismo. Ruta negociada hacia la reinstitucionalización democrática. Requiere garantías internacionales.',
+    s5_desc:'Conflicto agudo dentro de la élite chavista. Facciones debilitadas cooperan con la oposición para una transición democrática a corto plazo.',
+    source_label:'Fuente',
+    scA_tag:'Escenario A · Corto plazo',scA_title:'Disuasión',scA_desc:'La presencia militar de EE.UU. genera fracturas internas en la alianza cívico-militar-policial. Negociación tripartita: chavismo, EE.UU. y oposición (MCM/EGU).',scA_out:'→ Transición negociada liderada por civiles (forzada por lo militar)',
+    scB_tag:'Escenario B · Mediano plazo',scB_title:'Rendición',scB_desc:'Intervención militar de baja intensidad. Misiones específicas en territorio venezolano logran la rendición de las FANB. El alto mando militar negocia la transición de forma independiente.',scB_out:'→ Transición liderada por militares; actores políticos en segundo plano',
+    scC_tag:'Escenario C · Largo plazo',scC_title:'Confrontación',scC_desc:'Guerra extensa en territorio venezolano. Intervención activa de EE.UU. + división interna de las FANB. El escenario más violento e incierto.',scC_out:'→ Impredecible — los militares desplazan completamente la política',
+    alt_tag:'Escenario Alternativo · Si la variable de fuerza se disuelve',alt_title:'Consolidación Autoritaria 2026',alt_desc:'Sin presión militar de EE.UU., el chavismo avanza en reformas institucionales, reconstruye alianzas regionales (Colombia, Brasil) y explota la máxima fragmentación opositora.',
+    proj_label:'Proyectos Seleccionados',proj_h2:'Trabajo Analítico',
+    p1_title:'Mapeo Global de Mercados Ilícitos de Petróleo',p1_desc:'Mapa mundial interactivo en D3.js/TopoJSON para el análisis tipológico de 15 países en mercados ilícitos de combustible y petróleo. Tipología original de cinco categorías presentada mediante visualización de coropletas con tablas de datos filtrables.',
+    p2_title:'Mapa de Riesgo Electoral — Elecciones Presidenciales Venezuela 2024',p2_desc:'Índice cuantitativo de riesgo electoral para los 15.923 centros de votación de Venezuela antes de las elecciones presidenciales de julio de 2024. Seis indicadores binarios en dos dimensiones. Hallazgo clave: 85.6% de los centros en condición de riesgo, afectando a más de 18.5M de votantes.',
+    p3_title:'Infraestructura Electoral y Distribución del Voto — Venezuela 2015–2024',p3_desc:'Análisis comparativo de la infraestructura electoral venezolana en tres elecciones (2015, 2021, 2024). Hallazgo clave: el Registro Electoral creció 1.88M de electores pese a la crisis migratoria masiva — anomalía estructural con implicaciones directas para la manipulación electoral.',
+    p4_title:'Dashboard BTI 2026 — Transformación de Regímenes Políticos en 137 Países',p4_desc:'Dashboard interactivo que cubre 20 años de datos de régimen en 137 países y 1.507 observaciones. Combina estadística descriptiva, ANOVA y clasificación Random Forest (71.5% de precisión). Hallazgo clave: cero cruces entre los polos de autocracia y democracia en 20 años.',
+    view_report:'→ Ver informe completo en Observa Democracia',view_dashboard:'→ Explorar dashboard en Posmonición Política',
+    pub_label:'Publicaciones',pub_h2:'Producción Académica Seleccionada',peer_reviewed:'Libros y Artículos Arbitrados',pub_more:'Ver Lista Completa de Publicaciones →',
+    contact_label:'Contacto',contact_h2:'Trabajemos Juntos',contact_p:'Disponible para consultoría de investigación, proyectos de análisis estratégico e inteligencia de datos — de forma remota o presencial en Alemania y Europa.',
+    form_name:'Nombre',form_email:'Correo electrónico',form_org:'Organización (opcional)',form_msg:'Mensaje',form_send:'Enviar Mensaje',form_ok:'✓ Mensaje enviado. Le responderé a la brevedad.',
+    oil_filter_all:'Todos',oil_filter_pipeline:'Toma de ductos',oil_filter_smuggling:'Contrabando',oil_filter_sanctions:'Evasión de sanciones',oil_filter_adulteration:'Adulteración',oil_tab_data:'Base de datos',oil_tab_typology:'Tipología',oil_col_country:'País',oil_col_region:'Región',oil_col_type:'Tipo',oil_col_loss:'Pérdidas est./año',oil_col_actors:'Actores clave',oil_s1:'Países Mapeados',oil_s2:'Tipologías de Mercado',oil_s3:'Continentes',oil_s4:'Publicado',oil_method:'Tipología original de cinco categorías para mercados ilícitos de petróleo desarrollada por el Dr. Briceño (2025). Análisis comparativo cualitativo con visualización geoespacial D3.js/TopoJSON. 15 países en 4 continentes.',oil_chart_label:'Distribución por Tipo de Mercado · 15 Países',oil_t1_tag:'Tipo I · Captura Estatal',oil_t1_title:'Captura Institucional',oil_t1_desc:'El aparato estatal controla directamente los flujos de petróleo ilícito. La supervivencia del régimen depende de las rentas extraídas fuera de los canales formales.',oil_t2_tag:'Tipo II · Híbrido',oil_t2_title:'Control Híbrido',oil_t2_desc:'Actores formales e informales coexisten en un equilibrio frágil. Los mercados ilícitos operan en los espacios dejados por las brechas de gobernanza.',oil_t3_tag:'Tipo III · Redes Criminales',oil_t3_title:'Emprendimiento Criminal',oil_t3_desc:'El crimen organizado define la estructura del mercado. Los mercados son altamente adaptativos y transnacionales.',oil_t4_tag:'Tipo IV · Economía de Guerra',oil_t4_title:'Economía de Conflicto',oil_t4_desc:'El conflicto armado es el motor estructural. Las rentas petroleras financian grupos armados; el control de los campos es un objetivo de guerra.',oil_t5_tag:'Tipo V · Arbitraje de Subsidios',oil_t5_title:'Mercados de Arbitraje',oil_t5_desc:'Los diferenciales de precios creados por los subsidios al combustible generan arbitraje sistemático. El contrabando está socialmente normalizado.',
+    footer_link:'hectorbriceno.com'
+  },
+  de:{
+    nav_about:'Über mich',nav_expertise:'Kompetenzen',nav_research:'Forschung',nav_projects:'Projekte',nav_pub:'Publikationen',nav_contact:'Kontakt',
+    hero_tag:'Datenstrategie &amp; Forschungsintelligenz',
+    hero_sub:'Quantitative Forschung &nbsp;·&nbsp; Strategische Analyse &nbsp;·&nbsp; PhD in Politikwissenschaft<br>Komplexe Daten in handlungsorientierte Erkenntnisse übersetzen<br>für Organisationen in hochgradig unsicheren Umfeldern.',
+    hero_cta1:'Projekte ansehen ↓',hero_cta2:'Kontakt aufnehmen',
+    stat_data:'Verarbeitete Datensätze',stat1:'Jahre Erfahrung',stat2:'Analysierte Wahllokale',stat3:'Politisch Analysierte Länder',stat4:'Peer-reviewed Publikationen',
+    about_label:'Über mich',about_h2:'Politikwissenschaftler<br>und Datenstratege',
+    about_p1:'Ich bin ein <strong>Datenstratege und angewandter Forscher</strong> mit Sitz in Rostock, Deutschland. PhD in Politikwissenschaft der Universität Rostock und über fünfzehn Jahre Erfahrung in der Konzeption und Durchführung komplexer Forschungsprojekte in Europa und Lateinamerika.',
+    about_p2:'Meine Arbeit verbindet <strong>quantitative Sozialwissenschaft, strategische Geheimdienstanalyse und Datenvisualisierung</strong>. Ich entwickle analytische Pipelines, statistische Modelle und interaktive Dashboards, die politische und soziale Rohdaten in entscheidungsreife Erkenntnisse übersetzen.',
+    about_p3:'Ich habe mit diplomatischen Missionen, internationalen Organisationen, Forschungsinstitutionen und multilateralen Organisationen zu politischen Risikoanalysen und wirtschaftlichen Dynamiken zusammengearbeitet. Ich gründete außerdem <strong>CENSUM</strong>, eine Beratungsgesellschaft für Daten und politische Forschung, die seit 2014 tätig ist.',
+    about_p4:'Ich habe politische Analysen und Meinungsbeiträge für internationale Medien in Deutschland, den Niederlanden, Spanien, Venezuela, Ecuador und Brasilien verfasst, darunter <strong>DW</strong> (Deutschland), <strong>RNW</strong> (Niederlande), <strong>La Razón</strong> und <strong>Agenda Pública</strong> (Spanien), <strong>Efecto Cocuyo</strong> (Venezuela), <strong>El Universo</strong> (Ecuador) und viele andere.',
+    tech_stack:'Technisches Portfolio',media_label:'Medien &amp; Presse',based_label:'Standort',remote_label:'Offen für Remote- und Vor-Ort-Einsätze',
+    exp_label:'Kompetenzen',exp_h2:'Meine Leistungen',exp_intro:'Sechs Kernkompetenzen — einzeln oder kombiniert eingesetzt — für komplexe Forschungs-, Strategie- und Geheimdienstaufgaben.',
+    exp1_title:'Statistische Modellierung',exp1_desc:'Regressionsanalyse, Diskriminanzanalyse und Clustering auf großen Datensätzen — von der Modellentwicklung bis zur Kommunikation, integriert mit KI-gestützten Workflows zur Mustererkennung.',
+    exp2_title:'Politisches Risiko',exp2_desc:'Tiefgreifende Expertise in Wahlrisikoanalyse, Parteiensystemdynamiken, demokratischen Transitionen und Regimewandel in Lateinamerika und weltweit (137 Länder).',
+    exp3_title:'Strategische Analyse',exp3_desc:'Übersetzung von Daten aus verschiedenen Quellen (quantitative Modelle, Feldintelligenz, Open Sources) in präzise, handlungsorientierte Briefings für Entscheidungsträger.',
+    exp4_title:'Datenvisualisierung',exp4_desc:'Interaktive Power BI-Dashboards, geospatiale Wahlkarten und Choroplethendarstellungen — verstärkt durch KI-Tools — die komplexe Erkenntnisse unmittelbar verständlich machen.',
+    exp5_title:'Projektmanagement',exp5_desc:'Konzeption, Koordination und Lieferung komplexer Forschungsprojekte mit funktionsübergreifenden Teams — von der Umfangsdefinition bis zum Endprodukt.',
+    exp6_title:'Forschungs- &amp; Umfragedesign',exp6_desc:'End-to-End-Forschungsarchitektur: Hypothesendefinition, Instrumentenentwicklung, Datenerhebungsstrategie und KI-gestützte Methoden.',
+    
+    research_label:'Forschung &amp; Analyse',research_h2:'Interaktive Dashboards',research_intro:'Ausgewählte Forschungsergebnisse als Live-Analysen. Daten, Methodik und Visualisierungen direkt eingebettet.',
+    risk_s1:'Zentren mit Risiko',risk_s2:'Wahllokale',risk_s3:'Betroffene Wähler',risk_s4:'Risikoindikatoren',
+    method_label:'Methodik',risk_method:'Sechs binäre Indikatoren in zwei Dimensionen: Administratives Risiko (neue Zentren, Größe ≤500 Wähler, Wählervariation &gt;±15%) und Wahlrisiko (Abstention &gt;50% oder &lt;11.4%, Oppositionsdominanz &gt;75%, Regierungsdominanz &gt;75%). Globaler Risikoindex: 0–4.',
+    bti_s1:'Länder',bti_s2:'Beobachtungen',bti_s3:'Jahre Daten',bti_s4:'RF-Genauigkeit',bti_s5:'Polübergänge',
+    key_finding:'Wichtigste Erkenntnis',bti_finding:'"Die Welt ist in zwei nahezu gleich große Blöcke polarisiert — <em>50 stabile Autokratien</em> und <em>50 stabile Demokratien</em> — ohne jeglichen Polübergang in 20 Jahren."',
+    bti_finding2:'Der Autokratieanteil wuchs von 33,9% (2006) auf 36,5% (2026). Die stärkste Kontraktion zeigt sich bei instabilen Regimen — die Mitte schwindet, da sich Länder zu einem der Pole hin polarisieren.',
+    bti_method:'Originale Fünf-Kategorien-Regimetypologie basierend auf BTI-Demokratiestatustrajektorien in 11 bienalen Wellen. Analyse: deskriptive Statistik, einfaktorielle ANOVA und Random Forest-Klassifikation (71,5% Genauigkeit).',
+    tab1:'① Soziopolitische Szenarien 2025',tab2:'② Risikoanalyse Venezuela 2025–2026',
+    matrix_label:'Szenariomatrix — Zwei Schlüsselvariablen',scen_desc_label:'Szenariobeschreibungen',
+    s0_desc:'Chavismus stellt die Verbindung zur Basis durch wirtschaftliche Vorteile, ideologische Erneuerung und charismatische Führung wieder her. Wahrscheinlichkeit nahe null.',
+    s1_desc:'Zunahme interner und externer Repression. Gespaltener Chavismus; radikale Fraktionen gewinnen Macht. Opposition fragmentiert. Nicht nachhaltige Krisenlandschaft.',
+    s2_desc:'Chavismus baut Wirtschaftsblase auf, ruft Mega-Wahlen aus, verabschiedet restriktive Gesetze. Maximale Oppositionsspaltung. Stabilstes Szenario für das Regime.',
+    s3_desc:'Opposition bleibt geeint. Normalisierungsnarrative schlagen fehl. Eingefrorener Konflikt — Abnutzungskrieg, der zu S4/S5 oder S0/S2 führen kann.',
+    s4_desc:'Opposition setzt ihre Legitimität bei moderaten chavistischen Fraktionen durch. Verhandelter Weg zur demokratischen Reinstitutionalisierung. Erfordert internationale Garantien.',
+    s5_desc:'Akuter interner Chavismus-Konflikt. Geschwächte Fraktionen kooperieren mit der Opposition für einen kurzfristigen demokratischen Wandel.',
+    source_label:'Quelle',
+    scA_tag:'Szenario A · Kurzfristig',scA_title:'Abschreckung',scA_desc:'US-Militärpräsenz verursacht interne Brüche in der zivil-militärisch-polizeilichen Allianz. Dreiakteurs-Verhandlungen: Chavismus, USA und Opposition (MCM/EGU).',scA_out:'→ Ausgehandelte, zivilgeführte Transition (militärisch erzwungen)',
+    scB_tag:'Szenario B · Mittelfristig',scB_title:'Kapitulation',scB_desc:'Militärische Intervention geringer Intensität. Spezifische Einsätze in Venezuela erreichen die Kapitulation der FANB. Das Militär verhandelt die Transition unabhängig.',scB_out:'→ Militärgeführte Transition; politische Akteure sekundär',
+    scC_tag:'Szenario C · Langfristig',scC_title:'Konfrontation',scC_desc:'Ausgedehnter Krieg in Venezuela. Aktive US-Intervention + interne FANB-Spaltung. Gewaltsamstes und ungewissestes Szenario.',scC_out:'→ Unvorhersehbar — Militär verdrängt vollständig die Politik',
+    alt_tag:'Alternativszenario · Wenn die Gewalt-Variable entfällt',alt_title:'Autoritäre Konsolidierung 2026',alt_desc:'Ohne US-Militärdruck treibt der Chavismus institutionelle Reformen voran, baut regionale Allianzen (Kolumbien, Brasilien) wieder auf und nutzt die maximale Oppositionsfragmentierung aus.',
+    proj_label:'Ausgewählte Projekte',proj_h2:'Analytische Arbeit',
+    p1_title:'Globales Mapping illegaler Erdölmärkte',p1_desc:'Interaktive D3.js/TopoJSON-Weltkarte für eine 15-Länder-Typologieanalyse illegaler Kraftstoff- und Erdölmärkte. Originale Fünf-Kategorien-Markt-Typologie als Choroplethendarstellung mit filterbaren Datentabellen.',
+    p2_title:'Wahlrisikoanalyse — Präsidentschaftswahl Venezuela 2024',p2_desc:'Quantitativer Wahlrisikoindex für alle 15.923 Wahllokale vor den Präsidentschaftswahlen im Juli 2024. Sechs binäre Indikatoren in zwei Dimensionen. Zentralbefund: 85,6% der Wahllokale in Risikolage, 18,5M+ Wähler betroffen.',
+    p3_title:'Wahlinfrastruktur &amp; Wählerverteilung — Venezuela 2015–2024',p3_desc:'Vergleichende Analyse der venezolanischen Wahlinfrastruktur in drei Wahlen (2015, 2021, 2024). Zentralbefund: Das Wählerregister wuchs um 1,88 Mio. Wähler trotz massiver Emigrationskrise — strukturelle Anomalie mit direkten Implikationen für Wahlmanipulation.',
+    p4_title:'BTI 2026 Dashboard — Politischer Regimewandel in 137 Ländern',p4_desc:'Interaktives Dashboard über 20 Jahre Regimedaten in 137 Ländern und 1.507 Beobachtungen. Kombiniert deskriptive Statistik, ANOVA und Random Forest-Klassifikation (71,5% Genauigkeit). Zentralbefund: null Polübergänge zwischen Autokratie und Demokratie in 20 Jahren.',
+    view_report:'→ Vollständigen Bericht bei Observa Democracia ansehen',view_dashboard:'→ Live-Dashboard bei Posmonición Política erkunden',
+    pub_label:'Publikationen',pub_h2:'Ausgewählte Forschungsergebnisse',peer_reviewed:'Peer-reviewed Bücher &amp; Artikel',pub_more:'Vollständige Publikationsliste ansehen →',
+    contact_label:'Kontakt',contact_h2:'Zusammenarbeiten',contact_p:'Verfügbar für Forschungsberatung, strategische Analyseprojekte und Datenintelligenz-Engagements — remote oder vor Ort in Deutschland und Europa.',
+    form_name:'Name',form_email:'E-Mail',form_org:'Organisation (optional)',form_msg:'Nachricht',form_send:'Nachricht senden',form_ok:'✓ Nachricht gesendet. Ich melde mich in Kürze.',
+    oil_filter_all:'Alle',oil_filter_pipeline:'Leitungsanzapfung',oil_filter_smuggling:'Schmuggel',oil_filter_sanctions:'Sanktionsumgehung',oil_filter_adulteration:'Verfälschung',oil_tab_data:'Datenbank',oil_tab_typology:'Typologie',oil_col_country:'Land',oil_col_region:'Region',oil_col_type:'Typ',oil_col_loss:'Gesch. Verluste/Jahr',oil_col_actors:'Hauptakteure',oil_s1:'Kartierte Länder',oil_s2:'Markttypologien',oil_s3:'Kontinente',oil_s4:'Veröffentlicht',oil_method:'Originale Fünf-Kategorien-Typologie für illegale Erdölmärkte von Dr. Briceño (2025). Qualitative Vergleichsanalyse mit geospatialer D3.js/TopoJSON-Visualisierung. 15 Länder auf 4 Kontinenten.',oil_chart_label:'Markttypverteilung · 15 Länder',oil_t1_tag:'Typ I · Staatlich kontrolliert',oil_t1_title:'Institutionelle Capture',oil_t1_desc:'Der Staatsapparat kontrolliert direkt illegale Erdölströme. Das Überleben des Regimes hängt von außerhalb formaler Kanäle extrahierten Ressourcenrenten ab.',oil_t2_tag:'Typ II · Hybrid',oil_t2_title:'Hybride Kontrolle',oil_t2_desc:'Formale und informale Akteure koexistieren in einem fragilen Gleichgewicht. Illegale Märkte operieren in Lücken der Staatsführung.',oil_t3_tag:'Typ III · Kriminelle Netzwerke',oil_t3_title:'Kriminelles Unternehmertum',oil_t3_desc:'Organisierte Kriminalität prägt die Marktstruktur. Märkte sind hochgradig adaptiv und transnational.',oil_t4_tag:'Typ IV · Kriegswirtschaft',oil_t4_title:'Konfliktgetriebene Wirtschaft',oil_t4_desc:'Bewaffnete Konflikte sind der strukturelle Treiber. Erdöleinnahmen finanzieren bewaffnete Gruppen.',oil_t5_tag:'Typ V · Subventionsarbitrage',oil_t5_title:'Arbitragemärkte',oil_t5_desc:'Preisdifferenzen durch Kraftstoffsubventionen erzeugen systematische Arbitrage. Schmuggel ist sozial normalisiert.',
+    footer_link:'hectorbriceno.com'
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  sessionStorage.setItem('lang', lang);
+  const tr = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (tr[key] !== undefined) el.innerHTML = tr[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+  });
+  document.documentElement.lang = lang;
+}
+
+// ── Mobile nav ─────────────────────────────────────────
+function toggleMobile() {
+  const nav = document.getElementById('mobileNav');
+  const ham = document.getElementById('hamburger');
+  const open = nav.classList.toggle('open');
+  ham.classList.toggle('open', open);
+}
+function closeMobile() {
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+// ── Contact form ────────────────────────────────────────
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('button[type=submit]');
+  btn.disabled = true;
+  btn.textContent = '...';
+  try {
+    const res = await fetch(this.action, { method:'POST', body:new FormData(this), headers:{'Accept':'application/json'} });
+    if (res.ok) {
+      this.reset();
+      document.getElementById('formSuccess').style.display = 'block';
+    } else { btn.disabled = false; btn.innerHTML = T[currentLang].form_send; }
+  } catch { btn.disabled = false; btn.innerHTML = T[currentLang].form_send; }
+});
+
+// ── Scroll reveal ───────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Nav active on scroll ────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#'+current ? 'var(--gold)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
